@@ -1,0 +1,623 @@
+<!doctype html>
+
+<html lang="en-us">
+
+<head>
+  <title>John</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="A man like fishing" />
+  <meta name="author" content="John" /><meta name="generator" content="Hugo 0.59.1" />
+    
+
+  <meta property="og:title" content="sql server" />
+<meta property="og:description" content="A man like fishing" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://boqiao.github.io/tags/sql-server/" />
+
+<meta property="og:updated_time" content="2019-11-24T11:13:42+13:00" />
+
+  <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="sql server"/>
+<meta name="twitter:description" content="A man like fishing"/>
+
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css" />
+  <script src="https://kit.fontawesome.com/b76b73e8e8.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Slab|Ruda" />
+  <link rel="stylesheet" type="text/css" href="https://boqiao.github.io/css/styles.css" /></head>
+
+<body>
+  <div id="container">
+    <header>
+      <h1>
+                <a href="https://boqiao.github.io/">John</a>
+            </h1>
+
+      <ul id="social-media">
+        
+        
+         
+        <li><a href="https://www.linkedin.com/in/qiao-bo"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+             
+      </ul>
+      
+      <p><em>A programmer in new zealand</em></p>
+      
+    </header>
+
+    
+<nav>
+    <ul>
+        
+    </ul>
+</nav>
+
+    <main>
+
+
+
+
+<article>
+
+    <h1>store procedure for generating create-scripts of sql-server2000 object</h1>
+
+    
+        <aside>
+    <ul>
+        <li>
+            <time class="post-date" datetime="2019-11-24T11:13:42&#43;13:00">Nov 24, 2019</time>
+        </li>
+        
+        <li>
+            Categories:
+            <em>
+                
+                    
+                    <a href="https://boqiao.github.io/categories/tech">tech</a>
+                
+            </em>
+        </li>
+        
+
+        
+        <li>
+            <em>
+                
+                    
+                    <a href="https://boqiao.github.io/tags/sql-server">#sql server</a>
+                
+            </em>
+        </li>
+        
+
+        <li>11 minutes read</li>
+    </ul>
+</aside>
+
+    
+
+    <p>Basiclly it is implemented by parsing data of sysobjects table.
+I made it long long ago when sp_attach_db didn&rsquo;t work well(absolue path problem or other things I can&rsquo;t remember very clearly).
+It havn&rsquo;t be test on other sql server versions. Please be careful if you have to use this.
+<em>(Limit:bytes of any store procedure can&rsquo;t exceed 8000 since max length of varchar is 8000)</em></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">if</span> <span style="color:#66d9ef">exists</span> (<span style="color:#66d9ef">select</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">from</span> dbo.sysobjects <span style="color:#66d9ef">where</span> id <span style="color:#f92672">=</span> object_id(N<span style="color:#e6db74">&#39;[dbo].[sp_create_check]&#39;</span>) <span style="color:#66d9ef">and</span> OBJECTPROPERTY(id, N<span style="color:#e6db74">&#39;IsProcedure&#39;</span>) <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>)
+<span style="color:#66d9ef">drop</span> <span style="color:#66d9ef">procedure</span> [dbo].[sp_create_check]
+<span style="color:#66d9ef">GO</span>
+
+<span style="color:#66d9ef">if</span> <span style="color:#66d9ef">exists</span> (<span style="color:#66d9ef">select</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">from</span> dbo.sysobjects <span style="color:#66d9ef">where</span> id <span style="color:#f92672">=</span> object_id(N<span style="color:#e6db74">&#39;[dbo].[sp_create_fk]&#39;</span>) <span style="color:#66d9ef">and</span> OBJECTPROPERTY(id, N<span style="color:#e6db74">&#39;IsProcedure&#39;</span>) <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>)
+<span style="color:#66d9ef">drop</span> <span style="color:#66d9ef">procedure</span> [dbo].[sp_create_fk]
+<span style="color:#66d9ef">GO</span>
+
+<span style="color:#66d9ef">if</span> <span style="color:#66d9ef">exists</span> (<span style="color:#66d9ef">select</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">from</span> dbo.sysobjects <span style="color:#66d9ef">where</span> id <span style="color:#f92672">=</span> object_id(N<span style="color:#e6db74">&#39;[dbo].[sp_create_index]&#39;</span>) <span style="color:#66d9ef">and</span> OBJECTPROPERTY(id, N<span style="color:#e6db74">&#39;IsProcedure&#39;</span>) <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>)
+<span style="color:#66d9ef">drop</span> <span style="color:#66d9ef">procedure</span> [dbo].[sp_create_index]
+<span style="color:#66d9ef">GO</span>
+
+<span style="color:#66d9ef">if</span> <span style="color:#66d9ef">exists</span> (<span style="color:#66d9ef">select</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">from</span> dbo.sysobjects <span style="color:#66d9ef">where</span> id <span style="color:#f92672">=</span> object_id(N<span style="color:#e6db74">&#39;[dbo].[sp_create_pk_uq]&#39;</span>) <span style="color:#66d9ef">and</span> OBJECTPROPERTY(id, N<span style="color:#e6db74">&#39;IsProcedure&#39;</span>) <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>)
+<span style="color:#66d9ef">drop</span> <span style="color:#66d9ef">procedure</span> [dbo].[sp_create_pk_uq]
+<span style="color:#66d9ef">GO</span>
+
+<span style="color:#66d9ef">if</span> <span style="color:#66d9ef">exists</span> (<span style="color:#66d9ef">select</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">from</span> dbo.sysobjects <span style="color:#66d9ef">where</span> id <span style="color:#f92672">=</span> object_id(N<span style="color:#e6db74">&#39;[dbo].[sp_create_proc]&#39;</span>) <span style="color:#66d9ef">and</span> OBJECTPROPERTY(id, N<span style="color:#e6db74">&#39;IsProcedure&#39;</span>) <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>)
+<span style="color:#66d9ef">drop</span> <span style="color:#66d9ef">procedure</span> [dbo].[sp_create_proc]
+<span style="color:#66d9ef">GO</span>
+
+<span style="color:#66d9ef">if</span> <span style="color:#66d9ef">exists</span> (<span style="color:#66d9ef">select</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">from</span> dbo.sysobjects <span style="color:#66d9ef">where</span> id <span style="color:#f92672">=</span> object_id(N<span style="color:#e6db74">&#39;[dbo].[sp_create_table]&#39;</span>) <span style="color:#66d9ef">and</span> OBJECTPROPERTY(id, N<span style="color:#e6db74">&#39;IsProcedure&#39;</span>) <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>)
+<span style="color:#66d9ef">drop</span> <span style="color:#66d9ef">procedure</span> [dbo].[sp_create_table]
+<span style="color:#66d9ef">GO</span>
+
+<span style="color:#66d9ef">SET</span> QUOTED_IDENTIFIER <span style="color:#66d9ef">OFF</span>
+<span style="color:#66d9ef">GO</span>
+<span style="color:#66d9ef">SET</span> ANSI_NULLS <span style="color:#66d9ef">OFF</span>
+<span style="color:#66d9ef">GO</span>
+
+<span style="color:#75715e">/*
+</span><span style="color:#75715e"> Generate Check Constraints
+</span><span style="color:#75715e"> For Sql Server 2000
+</span><span style="color:#75715e"> beiqiao（qbboxcn@hotmail.com） 2004/02/29
+</span><span style="color:#75715e">*/</span>
+<span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">PROCEDURE</span> sp_create_check <span style="color:#66d9ef">AS</span>
+<span style="color:#66d9ef">select</span> <span style="color:#e6db74">&#39;ALTER TABLE &#39;</span> <span style="color:#f92672">+</span> d.name <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39; WITH NOCHECK ADD CONSTRAINT &#39;</span>  <span style="color:#f92672">+</span> a.name
+ <span style="color:#f92672">+</span> <span style="color:#66d9ef">case</span> <span style="color:#66d9ef">when</span> b.status <span style="color:#66d9ef">in</span> (<span style="color:#ae81ff">133141</span>,<span style="color:#ae81ff">2069</span>) <span style="color:#66d9ef">then</span> <span style="color:#e6db74">&#39; default &#39;</span> <span style="color:#66d9ef">else</span> <span style="color:#e6db74">&#39; check &#39;</span> <span style="color:#66d9ef">end</span>
+ <span style="color:#f92672">+</span> <span style="color:#66d9ef">c</span>.text 
+ <span style="color:#f92672">+</span> <span style="color:#66d9ef">case</span> <span style="color:#66d9ef">when</span> b.status <span style="color:#66d9ef">in</span> (<span style="color:#ae81ff">133141</span>,<span style="color:#ae81ff">2069</span>) <span style="color:#66d9ef">then</span> <span style="color:#e6db74">&#39; for &#39;</span> <span style="color:#f92672">+</span> col_name(b.id,b.colid) <span style="color:#66d9ef">else</span> <span style="color:#e6db74">&#39;&#39;</span> <span style="color:#66d9ef">end</span>
+
+<span style="color:#66d9ef">from</span> sysobjects a , sysconstraints b, syscomments <span style="color:#66d9ef">c</span> ,sysobjects d
+<span style="color:#66d9ef">where</span>  b.constid <span style="color:#f92672">=</span> a.id <span style="color:#66d9ef">and</span> b.constid <span style="color:#f92672">=</span> <span style="color:#66d9ef">c</span>.id <span style="color:#66d9ef">and</span> b.id <span style="color:#f92672">=</span> d.id <span style="color:#66d9ef">and</span> d.name <span style="color:#f92672">&lt;&gt;</span> <span style="color:#e6db74">&#39;dtproperties&#39;</span>
+
+<span style="color:#66d9ef">GO</span>
+<span style="color:#66d9ef">SET</span> QUOTED_IDENTIFIER <span style="color:#66d9ef">OFF</span>
+<span style="color:#66d9ef">GO</span>
+<span style="color:#66d9ef">SET</span> ANSI_NULLS <span style="color:#66d9ef">ON</span>
+<span style="color:#66d9ef">GO</span>
+
+<span style="color:#66d9ef">SET</span> QUOTED_IDENTIFIER <span style="color:#66d9ef">OFF</span>
+<span style="color:#66d9ef">GO</span>
+<span style="color:#66d9ef">SET</span> ANSI_NULLS <span style="color:#66d9ef">OFF</span>
+<span style="color:#66d9ef">GO</span>
+
+
+<span style="color:#75715e">/*
+</span><span style="color:#75715e"> Generate FK Constraints
+</span><span style="color:#75715e"> For Sql Server 2000
+</span><span style="color:#75715e"> beiqiao（qbboxcn@hotmail.com） 2004/02/29
+</span><span style="color:#75715e">*/</span>
+<span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">PROCEDURE</span> sp_create_fk <span style="color:#66d9ef">AS</span>
+<span style="color:#66d9ef">select</span>
+ <span style="color:#e6db74">&#39; alter table &#39;</span> <span style="color:#f92672">+</span> t_obj.name <span style="color:#f92672">+</span>
+ <span style="color:#e6db74">&#39; add constraint &#39;</span> <span style="color:#f92672">+</span> c_obj.name <span style="color:#f92672">+</span>
+ <span style="color:#e6db74">&#39; foreign key (&#39;</span> <span style="color:#f92672">+</span>
+ col_name(t_obj.id, fkey1) <span style="color:#f92672">+</span>
+ <span style="color:#75715e">-- 处理复合外键
+</span><span style="color:#75715e"></span> <span style="color:#66d9ef">case</span> <span style="color:#66d9ef">when</span> fkey2<span style="color:#f92672">&lt;&gt;</span><span style="color:#ae81ff">0</span> <span style="color:#66d9ef">then</span> <span style="color:#e6db74">&#39;,&#39;</span> <span style="color:#f92672">+</span> col_name(t_obj.id, fkey2) <span style="color:#66d9ef">else</span> <span style="color:#e6db74">&#39;&#39;</span> <span style="color:#66d9ef">end</span> <span style="color:#f92672">+</span>
+ <span style="color:#66d9ef">case</span> <span style="color:#66d9ef">when</span> fkey3<span style="color:#f92672">&lt;&gt;</span><span style="color:#ae81ff">0</span> <span style="color:#66d9ef">then</span> <span style="color:#e6db74">&#39;,&#39;</span> <span style="color:#f92672">+</span> col_name(t_obj.id, fkey3) <span style="color:#66d9ef">else</span> <span style="color:#e6db74">&#39;&#39;</span> <span style="color:#66d9ef">end</span> <span style="color:#f92672">+</span>
+ <span style="color:#66d9ef">case</span> <span style="color:#66d9ef">when</span> fkey4<span style="color:#f92672">&lt;&gt;</span><span style="color:#ae81ff">0</span> <span style="color:#66d9ef">then</span> <span style="color:#e6db74">&#39;,&#39;</span> <span style="color:#f92672">+</span> col_name(t_obj.id, fkey4) <span style="color:#66d9ef">else</span> <span style="color:#e6db74">&#39;&#39;</span> <span style="color:#66d9ef">end</span> <span style="color:#f92672">+</span>
+ <span style="color:#66d9ef">case</span> <span style="color:#66d9ef">when</span> fkey5<span style="color:#f92672">&lt;&gt;</span><span style="color:#ae81ff">0</span> <span style="color:#66d9ef">then</span> <span style="color:#e6db74">&#39;,&#39;</span> <span style="color:#f92672">+</span> col_name(t_obj.id, fkey5) <span style="color:#66d9ef">else</span> <span style="color:#e6db74">&#39;&#39;</span> <span style="color:#66d9ef">end</span> <span style="color:#f92672">+</span>
+ <span style="color:#66d9ef">case</span> <span style="color:#66d9ef">when</span> fkey6<span style="color:#f92672">&lt;&gt;</span><span style="color:#ae81ff">0</span> <span style="color:#66d9ef">then</span> <span style="color:#e6db74">&#39;,&#39;</span> <span style="color:#f92672">+</span> col_name(t_obj.id, fkey6) <span style="color:#66d9ef">else</span> <span style="color:#e6db74">&#39;&#39;</span> <span style="color:#66d9ef">end</span> <span style="color:#f92672">+</span>
+ <span style="color:#66d9ef">case</span> <span style="color:#66d9ef">when</span> fkey7<span style="color:#f92672">&lt;&gt;</span><span style="color:#ae81ff">0</span> <span style="color:#66d9ef">then</span> <span style="color:#e6db74">&#39;,&#39;</span> <span style="color:#f92672">+</span> col_name(t_obj.id, fkey7) <span style="color:#66d9ef">else</span> <span style="color:#e6db74">&#39;&#39;</span> <span style="color:#66d9ef">end</span> <span style="color:#f92672">+</span>
+ <span style="color:#66d9ef">case</span> <span style="color:#66d9ef">when</span> fkey8<span style="color:#f92672">&lt;&gt;</span><span style="color:#ae81ff">0</span> <span style="color:#66d9ef">then</span> <span style="color:#e6db74">&#39;,&#39;</span> <span style="color:#f92672">+</span> col_name(t_obj.id, fkey8) <span style="color:#66d9ef">else</span> <span style="color:#e6db74">&#39;&#39;</span> <span style="color:#66d9ef">end</span> <span style="color:#f92672">+</span>
+ <span style="color:#66d9ef">case</span> <span style="color:#66d9ef">when</span> fkey9<span style="color:#f92672">&lt;&gt;</span><span style="color:#ae81ff">0</span> <span style="color:#66d9ef">then</span> <span style="color:#e6db74">&#39;,&#39;</span> <span style="color:#f92672">+</span> col_name(t_obj.id, fkey9) <span style="color:#66d9ef">else</span> <span style="color:#e6db74">&#39;&#39;</span> <span style="color:#66d9ef">end</span> <span style="color:#f92672">+</span>
+ <span style="color:#66d9ef">case</span> <span style="color:#66d9ef">when</span> fkey10<span style="color:#f92672">&lt;&gt;</span><span style="color:#ae81ff">0</span> <span style="color:#66d9ef">then</span> <span style="color:#e6db74">&#39;,&#39;</span> <span style="color:#f92672">+</span> col_name(t_obj.id, fkey10) <span style="color:#66d9ef">else</span> <span style="color:#e6db74">&#39;&#39;</span> <span style="color:#66d9ef">end</span> <span style="color:#f92672">+</span>
+ <span style="color:#66d9ef">case</span> <span style="color:#66d9ef">when</span> fkey11<span style="color:#f92672">&lt;&gt;</span><span style="color:#ae81ff">0</span> <span style="color:#66d9ef">then</span> <span style="color:#e6db74">&#39;,&#39;</span> <span style="color:#f92672">+</span> col_name(t_obj.id, fkey11) <span style="color:#66d9ef">else</span> <span style="color:#e6db74">&#39;&#39;</span> <span style="color:#66d9ef">end</span> <span style="color:#f92672">+</span>
+ <span style="color:#66d9ef">case</span> <span style="color:#66d9ef">when</span> fkey12<span style="color:#f92672">&lt;&gt;</span><span style="color:#ae81ff">0</span> <span style="color:#66d9ef">then</span> <span style="color:#e6db74">&#39;,&#39;</span> <span style="color:#f92672">+</span> col_name(t_obj.id, fkey12) <span style="color:#66d9ef">else</span> <span style="color:#e6db74">&#39;&#39;</span> <span style="color:#66d9ef">end</span> <span style="color:#f92672">+</span>
+ <span style="color:#66d9ef">case</span> <span style="color:#66d9ef">when</span> fkey13<span style="color:#f92672">&lt;&gt;</span><span style="color:#ae81ff">0</span> <span style="color:#66d9ef">then</span> <span style="color:#e6db74">&#39;,&#39;</span> <span style="color:#f92672">+</span> col_name(t_obj.id, fkey13) <span style="color:#66d9ef">else</span> <span style="color:#e6db74">&#39;&#39;</span> <span style="color:#66d9ef">end</span> <span style="color:#f92672">+</span>
+ <span style="color:#66d9ef">case</span> <span style="color:#66d9ef">when</span> fkey14<span style="color:#f92672">&lt;&gt;</span><span style="color:#ae81ff">0</span> <span style="color:#66d9ef">then</span> <span style="color:#e6db74">&#39;,&#39;</span> <span style="color:#f92672">+</span> col_name(t_obj.id, fkey14) <span style="color:#66d9ef">else</span> <span style="color:#e6db74">&#39;&#39;</span> <span style="color:#66d9ef">end</span> <span style="color:#f92672">+</span>
+ <span style="color:#66d9ef">case</span> <span style="color:#66d9ef">when</span> fkey15<span style="color:#f92672">&lt;&gt;</span><span style="color:#ae81ff">0</span> <span style="color:#66d9ef">then</span> <span style="color:#e6db74">&#39;,&#39;</span> <span style="color:#f92672">+</span> col_name(t_obj.id, fkey15) <span style="color:#66d9ef">else</span> <span style="color:#e6db74">&#39;&#39;</span> <span style="color:#66d9ef">end</span> <span style="color:#f92672">+</span>
+ <span style="color:#66d9ef">case</span> <span style="color:#66d9ef">when</span> fkey16<span style="color:#f92672">&lt;&gt;</span><span style="color:#ae81ff">0</span> <span style="color:#66d9ef">then</span> <span style="color:#e6db74">&#39;,&#39;</span> <span style="color:#f92672">+</span> col_name(t_obj.id, fkey16) <span style="color:#66d9ef">else</span> <span style="color:#e6db74">&#39;&#39;</span> <span style="color:#66d9ef">end</span> <span style="color:#f92672">+</span>
+  <span style="color:#e6db74">&#39;) &#39;</span>  <span style="color:#f92672">+</span>
+ <span style="color:#e6db74">&#39; references &#39;</span> <span style="color:#f92672">+</span> r_obj.name <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;(&#39;</span> <span style="color:#f92672">+</span>
+ index_col(object_name(rkeyid), rkeyindid, <span style="color:#ae81ff">1</span> ) <span style="color:#f92672">+</span>
+ <span style="color:#75715e">-- 处理复合外键
+</span><span style="color:#75715e"></span> <span style="color:#66d9ef">case</span> <span style="color:#66d9ef">when</span> index_col(object_name(rkeyid), rkeyindid, <span style="color:#ae81ff">2</span> )<span style="color:#66d9ef">is</span> <span style="color:#66d9ef">not</span> <span style="color:#66d9ef">null</span> <span style="color:#66d9ef">then</span> <span style="color:#e6db74">&#39;,&#39;</span> <span style="color:#f92672">+</span> index_col(object_name(rkeyid), rkeyindid, <span style="color:#ae81ff">2</span> ) <span style="color:#66d9ef">else</span> <span style="color:#e6db74">&#39;&#39;</span> <span style="color:#66d9ef">end</span> <span style="color:#f92672">+</span>
+ <span style="color:#66d9ef">case</span> <span style="color:#66d9ef">when</span> index_col(object_name(rkeyid), rkeyindid, <span style="color:#ae81ff">3</span> )<span style="color:#66d9ef">is</span> <span style="color:#66d9ef">not</span> <span style="color:#66d9ef">null</span> <span style="color:#66d9ef">then</span> <span style="color:#e6db74">&#39;,&#39;</span> <span style="color:#f92672">+</span> index_col(object_name(rkeyid), rkeyindid, <span style="color:#ae81ff">3</span> ) <span style="color:#66d9ef">else</span> <span style="color:#e6db74">&#39;&#39;</span> <span style="color:#66d9ef">end</span> <span style="color:#f92672">+</span>
+ <span style="color:#66d9ef">case</span> <span style="color:#66d9ef">when</span> index_col(object_name(rkeyid), rkeyindid, <span style="color:#ae81ff">4</span> )<span style="color:#66d9ef">is</span> <span style="color:#66d9ef">not</span> <span style="color:#66d9ef">null</span> <span style="color:#66d9ef">then</span> <span style="color:#e6db74">&#39;,&#39;</span> <span style="color:#f92672">+</span> index_col(object_name(rkeyid), rkeyindid, <span style="color:#ae81ff">4</span> ) <span style="color:#66d9ef">else</span> <span style="color:#e6db74">&#39;&#39;</span> <span style="color:#66d9ef">end</span> <span style="color:#f92672">+</span>
+ <span style="color:#66d9ef">case</span> <span style="color:#66d9ef">when</span> index_col(object_name(rkeyid), rkeyindid, <span style="color:#ae81ff">5</span> )<span style="color:#66d9ef">is</span> <span style="color:#66d9ef">not</span> <span style="color:#66d9ef">null</span> <span style="color:#66d9ef">then</span> <span style="color:#e6db74">&#39;,&#39;</span> <span style="color:#f92672">+</span> index_col(object_name(rkeyid), rkeyindid, <span style="color:#ae81ff">5</span> ) <span style="color:#66d9ef">else</span> <span style="color:#e6db74">&#39;&#39;</span> <span style="color:#66d9ef">end</span> <span style="color:#f92672">+</span>
+ <span style="color:#66d9ef">case</span> <span style="color:#66d9ef">when</span> index_col(object_name(rkeyid), rkeyindid, <span style="color:#ae81ff">6</span> )<span style="color:#66d9ef">is</span> <span style="color:#66d9ef">not</span> <span style="color:#66d9ef">null</span> <span style="color:#66d9ef">then</span> <span style="color:#e6db74">&#39;,&#39;</span> <span style="color:#f92672">+</span> index_col(object_name(rkeyid), rkeyindid, <span style="color:#ae81ff">6</span> ) <span style="color:#66d9ef">else</span> <span style="color:#e6db74">&#39;&#39;</span> <span style="color:#66d9ef">end</span> <span style="color:#f92672">+</span>
+ <span style="color:#66d9ef">case</span> <span style="color:#66d9ef">when</span> index_col(object_name(rkeyid), rkeyindid, <span style="color:#ae81ff">7</span> )<span style="color:#66d9ef">is</span> <span style="color:#66d9ef">not</span> <span style="color:#66d9ef">null</span> <span style="color:#66d9ef">then</span> <span style="color:#e6db74">&#39;,&#39;</span> <span style="color:#f92672">+</span> index_col(object_name(rkeyid), rkeyindid, <span style="color:#ae81ff">7</span> ) <span style="color:#66d9ef">else</span> <span style="color:#e6db74">&#39;&#39;</span> <span style="color:#66d9ef">end</span> <span style="color:#f92672">+</span>
+ <span style="color:#66d9ef">case</span> <span style="color:#66d9ef">when</span> index_col(object_name(rkeyid), rkeyindid, <span style="color:#ae81ff">8</span> )<span style="color:#66d9ef">is</span> <span style="color:#66d9ef">not</span> <span style="color:#66d9ef">null</span> <span style="color:#66d9ef">then</span> <span style="color:#e6db74">&#39;,&#39;</span> <span style="color:#f92672">+</span> index_col(object_name(rkeyid), rkeyindid, <span style="color:#ae81ff">8</span> ) <span style="color:#66d9ef">else</span> <span style="color:#e6db74">&#39;&#39;</span> <span style="color:#66d9ef">end</span> <span style="color:#f92672">+</span>
+ <span style="color:#66d9ef">case</span> <span style="color:#66d9ef">when</span> index_col(object_name(rkeyid), rkeyindid, <span style="color:#ae81ff">9</span> )<span style="color:#66d9ef">is</span> <span style="color:#66d9ef">not</span> <span style="color:#66d9ef">null</span> <span style="color:#66d9ef">then</span> <span style="color:#e6db74">&#39;,&#39;</span> <span style="color:#f92672">+</span> index_col(object_name(rkeyid), rkeyindid, <span style="color:#ae81ff">9</span> ) <span style="color:#66d9ef">else</span> <span style="color:#e6db74">&#39;&#39;</span> <span style="color:#66d9ef">end</span> <span style="color:#f92672">+</span>
+ <span style="color:#66d9ef">case</span> <span style="color:#66d9ef">when</span> index_col(object_name(rkeyid), rkeyindid, <span style="color:#ae81ff">10</span> )<span style="color:#66d9ef">is</span> <span style="color:#66d9ef">not</span> <span style="color:#66d9ef">null</span> <span style="color:#66d9ef">then</span> <span style="color:#e6db74">&#39;,&#39;</span> <span style="color:#f92672">+</span> index_col(object_name(rkeyid), rkeyindid, <span style="color:#ae81ff">10</span> ) <span style="color:#66d9ef">else</span> <span style="color:#e6db74">&#39;&#39;</span> <span style="color:#66d9ef">end</span> <span style="color:#f92672">+</span>
+ <span style="color:#66d9ef">case</span> <span style="color:#66d9ef">when</span> index_col(object_name(rkeyid), rkeyindid, <span style="color:#ae81ff">11</span> )<span style="color:#66d9ef">is</span> <span style="color:#66d9ef">not</span> <span style="color:#66d9ef">null</span> <span style="color:#66d9ef">then</span> <span style="color:#e6db74">&#39;,&#39;</span> <span style="color:#f92672">+</span> index_col(object_name(rkeyid), rkeyindid, <span style="color:#ae81ff">11</span> ) <span style="color:#66d9ef">else</span> <span style="color:#e6db74">&#39;&#39;</span> <span style="color:#66d9ef">end</span> <span style="color:#f92672">+</span>
+ <span style="color:#66d9ef">case</span> <span style="color:#66d9ef">when</span> index_col(object_name(rkeyid), rkeyindid, <span style="color:#ae81ff">12</span> )<span style="color:#66d9ef">is</span> <span style="color:#66d9ef">not</span> <span style="color:#66d9ef">null</span> <span style="color:#66d9ef">then</span> <span style="color:#e6db74">&#39;,&#39;</span> <span style="color:#f92672">+</span> index_col(object_name(rkeyid), rkeyindid, <span style="color:#ae81ff">12</span> ) <span style="color:#66d9ef">else</span> <span style="color:#e6db74">&#39;&#39;</span> <span style="color:#66d9ef">end</span> <span style="color:#f92672">+</span>
+ <span style="color:#66d9ef">case</span> <span style="color:#66d9ef">when</span> index_col(object_name(rkeyid), rkeyindid, <span style="color:#ae81ff">13</span> )<span style="color:#66d9ef">is</span> <span style="color:#66d9ef">not</span> <span style="color:#66d9ef">null</span> <span style="color:#66d9ef">then</span> <span style="color:#e6db74">&#39;,&#39;</span> <span style="color:#f92672">+</span> index_col(object_name(rkeyid), rkeyindid, <span style="color:#ae81ff">13</span> ) <span style="color:#66d9ef">else</span> <span style="color:#e6db74">&#39;&#39;</span> <span style="color:#66d9ef">end</span> <span style="color:#f92672">+</span>
+ <span style="color:#66d9ef">case</span> <span style="color:#66d9ef">when</span> index_col(object_name(rkeyid), rkeyindid, <span style="color:#ae81ff">14</span> )<span style="color:#66d9ef">is</span> <span style="color:#66d9ef">not</span> <span style="color:#66d9ef">null</span> <span style="color:#66d9ef">then</span> <span style="color:#e6db74">&#39;,&#39;</span> <span style="color:#f92672">+</span> index_col(object_name(rkeyid), rkeyindid, <span style="color:#ae81ff">14</span> ) <span style="color:#66d9ef">else</span> <span style="color:#e6db74">&#39;&#39;</span> <span style="color:#66d9ef">end</span> <span style="color:#f92672">+</span>
+ <span style="color:#66d9ef">case</span> <span style="color:#66d9ef">when</span> index_col(object_name(rkeyid), rkeyindid, <span style="color:#ae81ff">15</span> )<span style="color:#66d9ef">is</span> <span style="color:#66d9ef">not</span> <span style="color:#66d9ef">null</span> <span style="color:#66d9ef">then</span> <span style="color:#e6db74">&#39;,&#39;</span> <span style="color:#f92672">+</span> index_col(object_name(rkeyid), rkeyindid, <span style="color:#ae81ff">15</span> ) <span style="color:#66d9ef">else</span> <span style="color:#e6db74">&#39;&#39;</span> <span style="color:#66d9ef">end</span> <span style="color:#f92672">+</span>
+ <span style="color:#66d9ef">case</span> <span style="color:#66d9ef">when</span> index_col(object_name(rkeyid), rkeyindid, <span style="color:#ae81ff">16</span> )<span style="color:#66d9ef">is</span> <span style="color:#66d9ef">not</span> <span style="color:#66d9ef">null</span> <span style="color:#66d9ef">then</span> <span style="color:#e6db74">&#39;,&#39;</span> <span style="color:#f92672">+</span> index_col(object_name(rkeyid), rkeyindid, <span style="color:#ae81ff">16</span> ) <span style="color:#66d9ef">else</span> <span style="color:#e6db74">&#39;&#39;</span> <span style="color:#66d9ef">end</span> <span style="color:#f92672">+</span>
+ <span style="color:#e6db74">&#39;)&#39;</span>
+<span style="color:#66d9ef">from</span>
+ sysobjects c_obj
+ ,sysobjects t_obj
+ ,sysobjects r_obj
+ ,syscolumns col
+ ,sysreferences  <span style="color:#66d9ef">ref</span>
+<span style="color:#66d9ef">where</span>
+ c_obj.xtype <span style="color:#66d9ef">in</span> (<span style="color:#e6db74">&#39;F&#39;</span>)
+ <span style="color:#66d9ef">and</span> t_obj.id <span style="color:#f92672">=</span> c_obj.parent_obj
+ <span style="color:#66d9ef">and</span> t_obj.id <span style="color:#f92672">=</span> col.id
+ <span style="color:#66d9ef">and</span> col.colid   <span style="color:#66d9ef">in</span>
+ (<span style="color:#66d9ef">ref</span>.fkey1,<span style="color:#66d9ef">ref</span>.fkey2,<span style="color:#66d9ef">ref</span>.fkey3,<span style="color:#66d9ef">ref</span>.fkey4,<span style="color:#66d9ef">ref</span>.fkey5,<span style="color:#66d9ef">ref</span>.fkey6,
+ <span style="color:#66d9ef">ref</span>.fkey7,<span style="color:#66d9ef">ref</span>.fkey8,<span style="color:#66d9ef">ref</span>.fkey9,<span style="color:#66d9ef">ref</span>.fkey10,<span style="color:#66d9ef">ref</span>.fkey11,<span style="color:#66d9ef">ref</span>.fkey12,
+ <span style="color:#66d9ef">ref</span>.fkey13,<span style="color:#66d9ef">ref</span>.fkey14,<span style="color:#66d9ef">ref</span>.fkey15,<span style="color:#66d9ef">ref</span>.fkey16)
+ <span style="color:#66d9ef">and</span> c_obj.id <span style="color:#f92672">=</span> <span style="color:#66d9ef">ref</span>.constid
+ <span style="color:#66d9ef">and</span> r_obj.id <span style="color:#f92672">=</span> <span style="color:#66d9ef">ref</span>.rkeyid
+
+<span style="color:#66d9ef">GO</span>
+<span style="color:#66d9ef">SET</span> QUOTED_IDENTIFIER <span style="color:#66d9ef">OFF</span>
+<span style="color:#66d9ef">GO</span>
+<span style="color:#66d9ef">SET</span> ANSI_NULLS <span style="color:#66d9ef">ON</span>
+<span style="color:#66d9ef">GO</span>
+
+<span style="color:#66d9ef">SET</span> QUOTED_IDENTIFIER <span style="color:#66d9ef">OFF</span>
+<span style="color:#66d9ef">GO</span>
+<span style="color:#66d9ef">SET</span> ANSI_NULLS <span style="color:#66d9ef">OFF</span>
+<span style="color:#66d9ef">GO</span>
+
+
+<span style="color:#75715e">/*
+</span><span style="color:#75715e"> Generate Indexs 
+</span><span style="color:#75715e"> For Sql Server 2000
+</span><span style="color:#75715e"> beiqiao（qbboxcn@hotmail.com） 2004/02/29
+</span><span style="color:#75715e">*/</span>
+<span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">PROCEDURE</span> sp_create_index <span style="color:#66d9ef">AS</span>
+<span style="color:#66d9ef">declare</span> <span style="color:#f92672">@</span>tableName nvarchar(<span style="color:#ae81ff">128</span>)
+<span style="color:#66d9ef">declare</span> <span style="color:#f92672">@</span>indexName nvarchar(<span style="color:#ae81ff">128</span>)
+<span style="color:#66d9ef">declare</span> <span style="color:#f92672">@</span>status int
+<span style="color:#66d9ef">declare</span> <span style="color:#f92672">@</span>OrigFillFactor int
+<span style="color:#66d9ef">declare</span> <span style="color:#f92672">@</span>columnName nvarchar(<span style="color:#ae81ff">128</span>)
+<span style="color:#66d9ef">declare</span> <span style="color:#f92672">@</span>indid smallint
+<span style="color:#66d9ef">declare</span> <span style="color:#f92672">@</span>clusteredString nvarchar(<span style="color:#ae81ff">16</span>)
+<span style="color:#66d9ef">declare</span> <span style="color:#f92672">@</span>uniqueString nvarchar(<span style="color:#ae81ff">16</span>)
+<span style="color:#66d9ef">declare</span> <span style="color:#f92672">@</span>fillfactorString nvarchar(<span style="color:#ae81ff">1024</span>)
+<span style="color:#66d9ef">declare</span> <span style="color:#f92672">@</span><span style="color:#66d9ef">sql</span> nvarchar(<span style="color:#ae81ff">1024</span>)
+
+<span style="color:#66d9ef">select</span> <span style="color:#f92672">@</span>fillfactorString <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;</span>
+<span style="color:#66d9ef">select</span> <span style="color:#f92672">@</span><span style="color:#66d9ef">sql</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;</span>
+
+<span style="color:#66d9ef">create</span> <span style="color:#66d9ef">table</span> <span style="color:#f92672">#</span>tmpTable (<span style="color:#66d9ef">sql</span> nvarchar(<span style="color:#ae81ff">4000</span>))
+
+<span style="color:#66d9ef">DECLARE</span> myCursor  <span style="color:#66d9ef">CURSOR</span> <span style="color:#66d9ef">FOR</span>
+<span style="color:#66d9ef">select</span> b.name <span style="color:#66d9ef">as</span> tableName, a.name <span style="color:#66d9ef">as</span> indexName, a.status, a.OrigFillFactor, index_col(b.name, indid, <span style="color:#ae81ff">1</span> ) <span style="color:#66d9ef">as</span> columnName ,a.indid
+<span style="color:#66d9ef">from</span> sysindexes a, sysobjects b
+<span style="color:#66d9ef">where</span> a.id <span style="color:#f92672">=</span> b.id <span style="color:#66d9ef">and</span> b.xtype <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;U&#39;</span> <span style="color:#66d9ef">and</span> indid <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span> <span style="color:#66d9ef">and</span> indid <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">255</span>
+<span style="color:#66d9ef">and</span> (a.status <span style="color:#f92672">&amp;</span> <span style="color:#ae81ff">8388608</span>)  <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span> <span style="color:#75715e">--去掉不需要的记录
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">and</span> (a.status <span style="color:#f92672">&amp;</span> <span style="color:#ae81ff">2048</span>) <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span> <span style="color:#75715e">--去掉primary key
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">OPEN</span> myCursor
+
+<span style="color:#66d9ef">FETCH</span> <span style="color:#66d9ef">NEXT</span> <span style="color:#66d9ef">FROM</span> myCursor <span style="color:#66d9ef">into</span> <span style="color:#f92672">@</span>tableName,<span style="color:#f92672">@</span>indexName,<span style="color:#f92672">@</span>status,<span style="color:#f92672">@</span>OrigFillFactor,<span style="color:#f92672">@</span>columnName,<span style="color:#f92672">@</span>indid
+
+WHILE <span style="color:#f92672">@@</span>FETCH_STATUS <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+<span style="color:#66d9ef">BEGIN</span>
+
+ <span style="color:#66d9ef">if</span> (<span style="color:#f92672">@</span>status <span style="color:#f92672">&amp;</span> <span style="color:#ae81ff">16</span>)<span style="color:#f92672">&lt;&gt;</span><span style="color:#ae81ff">0</span>
+  <span style="color:#66d9ef">select</span> <span style="color:#f92672">@</span>clusteredString <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39; clustered &#39;</span>
+ <span style="color:#66d9ef">else</span>
+  <span style="color:#66d9ef">select</span> <span style="color:#f92672">@</span>clusteredString <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39; nonclustered &#39;</span>
+
+ <span style="color:#66d9ef">if</span> (<span style="color:#f92672">@</span>status <span style="color:#f92672">&amp;</span> <span style="color:#ae81ff">2</span>)<span style="color:#f92672">&lt;&gt;</span><span style="color:#ae81ff">0</span>
+  <span style="color:#66d9ef">select</span> <span style="color:#f92672">@</span>uniqueString <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39; UNIQUE &#39;</span>
+ <span style="color:#66d9ef">else</span>
+  <span style="color:#66d9ef">select</span> <span style="color:#f92672">@</span>uniqueString <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39; &#39;</span>
+ 
+ <span style="color:#66d9ef">if</span> <span style="color:#f92672">@</span>OrigFillFactor <span style="color:#f92672">&lt;&gt;</span><span style="color:#ae81ff">0</span>
+  <span style="color:#66d9ef">select</span> <span style="color:#f92672">@</span>fillfactorString <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;,FILLFACTOR=&#39;</span> <span style="color:#f92672">+</span> ltrim(rtrim(str(<span style="color:#f92672">@</span>OrigFillFactor)))
+ <span style="color:#66d9ef">else</span>
+  <span style="color:#66d9ef">select</span> <span style="color:#f92672">@</span>fillfactorString <span style="color:#f92672">=</span><span style="color:#e6db74">&#39;&#39;</span>
+
+ <span style="color:#66d9ef">if</span> (<span style="color:#f92672">@</span>status <span style="color:#f92672">&amp;</span><span style="color:#ae81ff">1</span>)<span style="color:#f92672">&lt;&gt;</span><span style="color:#ae81ff">0</span>
+  <span style="color:#66d9ef">select</span> <span style="color:#f92672">@</span>fillfactorString <span style="color:#f92672">=</span>  <span style="color:#f92672">@</span>fillfactorString <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;,IGNORE_DUP_KEY&#39;</span>
+
+ <span style="color:#66d9ef">if</span> (<span style="color:#f92672">@</span>status <span style="color:#f92672">&amp;</span><span style="color:#ae81ff">256</span>)<span style="color:#f92672">&lt;&gt;</span><span style="color:#ae81ff">0</span>
+  <span style="color:#66d9ef">select</span> <span style="color:#f92672">@</span>fillfactorString <span style="color:#f92672">=</span>  <span style="color:#f92672">@</span>fillfactorString <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;,PAD_INDEX&#39;</span>
+
+ <span style="color:#66d9ef">if</span> (<span style="color:#f92672">@</span>status <span style="color:#f92672">&amp;</span><span style="color:#ae81ff">16777216</span>)<span style="color:#f92672">&lt;&gt;</span><span style="color:#ae81ff">0</span>
+  <span style="color:#66d9ef">select</span> <span style="color:#f92672">@</span>fillfactorString <span style="color:#f92672">=</span>  <span style="color:#f92672">@</span>fillfactorString <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;,STATISTICS_NORECOMPUTE&#39;</span>
+ 
+ <span style="color:#66d9ef">if</span>  len(<span style="color:#f92672">@</span>fillfactorString) <span style="color:#f92672">&lt;&gt;</span> <span style="color:#ae81ff">0</span>
+  <span style="color:#66d9ef">select</span> <span style="color:#f92672">@</span>fillfactorString <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39; with &#39;</span> <span style="color:#f92672">+</span> <span style="color:#66d9ef">substring</span>( <span style="color:#f92672">@</span>fillfactorString, <span style="color:#ae81ff">2</span>, len(<span style="color:#f92672">@</span>fillfactorString)<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span> )
+
+ <span style="color:#66d9ef">if</span> (<span style="color:#f92672">@</span>status <span style="color:#f92672">&amp;</span> <span style="color:#ae81ff">4096</span>)<span style="color:#f92672">&lt;&gt;</span><span style="color:#ae81ff">0</span>
+  <span style="color:#66d9ef">select</span> <span style="color:#f92672">@</span><span style="color:#66d9ef">sql</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;ALTER TABLE &#39;</span> <span style="color:#f92672">+</span> <span style="color:#f92672">@</span>tableName <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39; WITH NOCHECK ADD CONSTRAINT &#39;</span>
+  <span style="color:#f92672">+</span> <span style="color:#f92672">@</span>indexName <span style="color:#f92672">+</span> <span style="color:#f92672">@</span>clusteredString <span style="color:#f92672">+</span> <span style="color:#f92672">@</span>uniqueString <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;(&#39;</span>
+  <span style="color:#f92672">+</span> index_col(<span style="color:#f92672">@</span>tableName, <span style="color:#f92672">@</span>indid, <span style="color:#ae81ff">1</span> )
+  <span style="color:#f92672">+</span> <span style="color:#66d9ef">case</span> <span style="color:#66d9ef">when</span> index_col(<span style="color:#f92672">@</span>tableName, <span style="color:#f92672">@</span>indid, <span style="color:#ae81ff">2</span> )<span style="color:#66d9ef">is</span> <span style="color:#66d9ef">not</span> <span style="color:#66d9ef">null</span> <span style="color:#66d9ef">then</span> <span style="color:#e6db74">&#39;,&#39;</span> <span style="color:#f92672">+</span> index_col(<span style="color:#f92672">@</span>tableName, <span style="color:#f92672">@</span>indid, <span style="color:#ae81ff">2</span> ) <span style="color:#66d9ef">else</span> <span style="color:#e6db74">&#39;&#39;</span> <span style="color:#66d9ef">end</span>
+  <span style="color:#f92672">+</span> <span style="color:#66d9ef">case</span> <span style="color:#66d9ef">when</span> index_col(<span style="color:#f92672">@</span>tableName, <span style="color:#f92672">@</span>indid, <span style="color:#ae81ff">3</span> )<span style="color:#66d9ef">is</span> <span style="color:#66d9ef">not</span> <span style="color:#66d9ef">null</span> <span style="color:#66d9ef">then</span> <span style="color:#e6db74">&#39;,&#39;</span> <span style="color:#f92672">+</span> index_col(<span style="color:#f92672">@</span>tableName, <span style="color:#f92672">@</span>indid, <span style="color:#ae81ff">3</span> ) <span style="color:#66d9ef">else</span> <span style="color:#e6db74">&#39;&#39;</span> <span style="color:#66d9ef">end</span>
+  <span style="color:#f92672">+</span> <span style="color:#66d9ef">case</span> <span style="color:#66d9ef">when</span> index_col(<span style="color:#f92672">@</span>tableName, <span style="color:#f92672">@</span>indid, <span style="color:#ae81ff">4</span> )<span style="color:#66d9ef">is</span> <span style="color:#66d9ef">not</span> <span style="color:#66d9ef">null</span> <span style="color:#66d9ef">then</span> <span style="color:#e6db74">&#39;,&#39;</span> <span style="color:#f92672">+</span> index_col(<span style="color:#f92672">@</span>tableName, <span style="color:#f92672">@</span>indid, <span style="color:#ae81ff">4</span> ) <span style="color:#66d9ef">else</span> <span style="color:#e6db74">&#39;&#39;</span> <span style="color:#66d9ef">end</span>
+  <span style="color:#f92672">+</span> <span style="color:#66d9ef">case</span> <span style="color:#66d9ef">when</span> index_col(<span style="color:#f92672">@</span>tableName, <span style="color:#f92672">@</span>indid, <span style="color:#ae81ff">5</span> )<span style="color:#66d9ef">is</span> <span style="color:#66d9ef">not</span> <span style="color:#66d9ef">null</span> <span style="color:#66d9ef">then</span> <span style="color:#e6db74">&#39;,&#39;</span> <span style="color:#f92672">+</span> index_col(<span style="color:#f92672">@</span>tableName, <span style="color:#f92672">@</span>indid, <span style="color:#ae81ff">5</span> ) <span style="color:#66d9ef">else</span> <span style="color:#e6db74">&#39;&#39;</span> <span style="color:#66d9ef">end</span>
+  <span style="color:#f92672">+</span> <span style="color:#66d9ef">case</span> <span style="color:#66d9ef">when</span> index_col(<span style="color:#f92672">@</span>tableName, <span style="color:#f92672">@</span>indid, <span style="color:#ae81ff">6</span> )<span style="color:#66d9ef">is</span> <span style="color:#66d9ef">not</span> <span style="color:#66d9ef">null</span> <span style="color:#66d9ef">then</span> <span style="color:#e6db74">&#39;,&#39;</span> <span style="color:#f92672">+</span> index_col(<span style="color:#f92672">@</span>tableName, <span style="color:#f92672">@</span>indid, <span style="color:#ae81ff">6</span> ) <span style="color:#66d9ef">else</span> <span style="color:#e6db74">&#39;&#39;</span> <span style="color:#66d9ef">end</span>
+  <span style="color:#f92672">+</span> <span style="color:#66d9ef">case</span> <span style="color:#66d9ef">when</span> index_col(<span style="color:#f92672">@</span>tableName, <span style="color:#f92672">@</span>indid, <span style="color:#ae81ff">7</span> )<span style="color:#66d9ef">is</span> <span style="color:#66d9ef">not</span> <span style="color:#66d9ef">null</span> <span style="color:#66d9ef">then</span> <span style="color:#e6db74">&#39;,&#39;</span> <span style="color:#f92672">+</span> index_col(<span style="color:#f92672">@</span>tableName, <span style="color:#f92672">@</span>indid, <span style="color:#ae81ff">7</span> ) <span style="color:#66d9ef">else</span> <span style="color:#e6db74">&#39;&#39;</span> <span style="color:#66d9ef">end</span>
+  <span style="color:#f92672">+</span> <span style="color:#66d9ef">case</span> <span style="color:#66d9ef">when</span> index_col(<span style="color:#f92672">@</span>tableName, <span style="color:#f92672">@</span>indid, <span style="color:#ae81ff">8</span> )<span style="color:#66d9ef">is</span> <span style="color:#66d9ef">not</span> <span style="color:#66d9ef">null</span> <span style="color:#66d9ef">then</span> <span style="color:#e6db74">&#39;,&#39;</span> <span style="color:#f92672">+</span> index_col(<span style="color:#f92672">@</span>tableName, <span style="color:#f92672">@</span>indid, <span style="color:#ae81ff">8</span> ) <span style="color:#66d9ef">else</span> <span style="color:#e6db74">&#39;&#39;</span> <span style="color:#66d9ef">end</span>
+  <span style="color:#f92672">+</span> <span style="color:#66d9ef">case</span> <span style="color:#66d9ef">when</span> index_col(<span style="color:#f92672">@</span>tableName, <span style="color:#f92672">@</span>indid, <span style="color:#ae81ff">9</span> )<span style="color:#66d9ef">is</span> <span style="color:#66d9ef">not</span> <span style="color:#66d9ef">null</span> <span style="color:#66d9ef">then</span> <span style="color:#e6db74">&#39;,&#39;</span> <span style="color:#f92672">+</span> index_col(<span style="color:#f92672">@</span>tableName, <span style="color:#f92672">@</span>indid, <span style="color:#ae81ff">9</span> ) <span style="color:#66d9ef">else</span> <span style="color:#e6db74">&#39;&#39;</span> <span style="color:#66d9ef">end</span>
+  <span style="color:#f92672">+</span> <span style="color:#66d9ef">case</span> <span style="color:#66d9ef">when</span> index_col(<span style="color:#f92672">@</span>tableName, <span style="color:#f92672">@</span>indid, <span style="color:#ae81ff">10</span> )<span style="color:#66d9ef">is</span> <span style="color:#66d9ef">not</span> <span style="color:#66d9ef">null</span> <span style="color:#66d9ef">then</span> <span style="color:#e6db74">&#39;,&#39;</span> <span style="color:#f92672">+</span> index_col(<span style="color:#f92672">@</span>tableName, <span style="color:#f92672">@</span>indid, <span style="color:#ae81ff">10</span> ) <span style="color:#66d9ef">else</span> <span style="color:#e6db74">&#39;&#39;</span> <span style="color:#66d9ef">end</span>
+  <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;)&#39;</span>
+  <span style="color:#f92672">+</span> <span style="color:#f92672">@</span>fillfactorString
+ <span style="color:#66d9ef">else</span>
+  <span style="color:#66d9ef">select</span> <span style="color:#f92672">@</span><span style="color:#66d9ef">sql</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;create &#39;</span> <span style="color:#f92672">+</span> <span style="color:#f92672">@</span>clusteredString <span style="color:#f92672">+</span> <span style="color:#f92672">@</span>uniqueString <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39; INDEX &#39;</span> <span style="color:#f92672">+</span> <span style="color:#f92672">@</span>indexName <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39; ON &#39;</span> <span style="color:#f92672">+</span> <span style="color:#f92672">@</span>tableName <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;(&#39;</span>
+  <span style="color:#f92672">+</span> index_col(<span style="color:#f92672">@</span>tableName, <span style="color:#f92672">@</span>indid, <span style="color:#ae81ff">1</span> )
+  <span style="color:#f92672">+</span> <span style="color:#66d9ef">case</span> <span style="color:#66d9ef">when</span> index_col(<span style="color:#f92672">@</span>tableName, <span style="color:#f92672">@</span>indid, <span style="color:#ae81ff">2</span> )<span style="color:#66d9ef">is</span> <span style="color:#66d9ef">not</span> <span style="color:#66d9ef">null</span> <span style="color:#66d9ef">then</span> <span style="color:#e6db74">&#39;,&#39;</span> <span style="color:#f92672">+</span> index_col(<span style="color:#f92672">@</span>tableName, <span style="color:#f92672">@</span>indid, <span style="color:#ae81ff">2</span> ) <span style="color:#66d9ef">else</span> <span style="color:#e6db74">&#39;&#39;</span> <span style="color:#66d9ef">end</span>
+  <span style="color:#f92672">+</span> <span style="color:#66d9ef">case</span> <span style="color:#66d9ef">when</span> index_col(<span style="color:#f92672">@</span>tableName, <span style="color:#f92672">@</span>indid, <span style="color:#ae81ff">3</span> )<span style="color:#66d9ef">is</span> <span style="color:#66d9ef">not</span> <span style="color:#66d9ef">null</span> <span style="color:#66d9ef">then</span> <span style="color:#e6db74">&#39;,&#39;</span> <span style="color:#f92672">+</span> index_col(<span style="color:#f92672">@</span>tableName, <span style="color:#f92672">@</span>indid, <span style="color:#ae81ff">3</span> ) <span style="color:#66d9ef">else</span> <span style="color:#e6db74">&#39;&#39;</span> <span style="color:#66d9ef">end</span>
+  <span style="color:#f92672">+</span> <span style="color:#66d9ef">case</span> <span style="color:#66d9ef">when</span> index_col(<span style="color:#f92672">@</span>tableName, <span style="color:#f92672">@</span>indid, <span style="color:#ae81ff">4</span> )<span style="color:#66d9ef">is</span> <span style="color:#66d9ef">not</span> <span style="color:#66d9ef">null</span> <span style="color:#66d9ef">then</span> <span style="color:#e6db74">&#39;,&#39;</span> <span style="color:#f92672">+</span> index_col(<span style="color:#f92672">@</span>tableName, <span style="color:#f92672">@</span>indid, <span style="color:#ae81ff">4</span> ) <span style="color:#66d9ef">else</span> <span style="color:#e6db74">&#39;&#39;</span> <span style="color:#66d9ef">end</span>
+  <span style="color:#f92672">+</span> <span style="color:#66d9ef">case</span> <span style="color:#66d9ef">when</span> index_col(<span style="color:#f92672">@</span>tableName, <span style="color:#f92672">@</span>indid, <span style="color:#ae81ff">5</span> )<span style="color:#66d9ef">is</span> <span style="color:#66d9ef">not</span> <span style="color:#66d9ef">null</span> <span style="color:#66d9ef">then</span> <span style="color:#e6db74">&#39;,&#39;</span> <span style="color:#f92672">+</span> index_col(<span style="color:#f92672">@</span>tableName, <span style="color:#f92672">@</span>indid, <span style="color:#ae81ff">5</span> ) <span style="color:#66d9ef">else</span> <span style="color:#e6db74">&#39;&#39;</span> <span style="color:#66d9ef">end</span>
+  <span style="color:#f92672">+</span> <span style="color:#66d9ef">case</span> <span style="color:#66d9ef">when</span> index_col(<span style="color:#f92672">@</span>tableName, <span style="color:#f92672">@</span>indid, <span style="color:#ae81ff">6</span> )<span style="color:#66d9ef">is</span> <span style="color:#66d9ef">not</span> <span style="color:#66d9ef">null</span> <span style="color:#66d9ef">then</span> <span style="color:#e6db74">&#39;,&#39;</span> <span style="color:#f92672">+</span> index_col(<span style="color:#f92672">@</span>tableName, <span style="color:#f92672">@</span>indid, <span style="color:#ae81ff">6</span> ) <span style="color:#66d9ef">else</span> <span style="color:#e6db74">&#39;&#39;</span> <span style="color:#66d9ef">end</span>
+  <span style="color:#f92672">+</span> <span style="color:#66d9ef">case</span> <span style="color:#66d9ef">when</span> index_col(<span style="color:#f92672">@</span>tableName, <span style="color:#f92672">@</span>indid, <span style="color:#ae81ff">7</span> )<span style="color:#66d9ef">is</span> <span style="color:#66d9ef">not</span> <span style="color:#66d9ef">null</span> <span style="color:#66d9ef">then</span> <span style="color:#e6db74">&#39;,&#39;</span> <span style="color:#f92672">+</span> index_col(<span style="color:#f92672">@</span>tableName, <span style="color:#f92672">@</span>indid, <span style="color:#ae81ff">7</span> ) <span style="color:#66d9ef">else</span> <span style="color:#e6db74">&#39;&#39;</span> <span style="color:#66d9ef">end</span>
+  <span style="color:#f92672">+</span> <span style="color:#66d9ef">case</span> <span style="color:#66d9ef">when</span> index_col(<span style="color:#f92672">@</span>tableName, <span style="color:#f92672">@</span>indid, <span style="color:#ae81ff">8</span> )<span style="color:#66d9ef">is</span> <span style="color:#66d9ef">not</span> <span style="color:#66d9ef">null</span> <span style="color:#66d9ef">then</span> <span style="color:#e6db74">&#39;,&#39;</span> <span style="color:#f92672">+</span> index_col(<span style="color:#f92672">@</span>tableName, <span style="color:#f92672">@</span>indid, <span style="color:#ae81ff">8</span> ) <span style="color:#66d9ef">else</span> <span style="color:#e6db74">&#39;&#39;</span> <span style="color:#66d9ef">end</span>
+  <span style="color:#f92672">+</span> <span style="color:#66d9ef">case</span> <span style="color:#66d9ef">when</span> index_col(<span style="color:#f92672">@</span>tableName, <span style="color:#f92672">@</span>indid, <span style="color:#ae81ff">9</span> )<span style="color:#66d9ef">is</span> <span style="color:#66d9ef">not</span> <span style="color:#66d9ef">null</span> <span style="color:#66d9ef">then</span> <span style="color:#e6db74">&#39;,&#39;</span> <span style="color:#f92672">+</span> index_col(<span style="color:#f92672">@</span>tableName, <span style="color:#f92672">@</span>indid, <span style="color:#ae81ff">9</span> ) <span style="color:#66d9ef">else</span> <span style="color:#e6db74">&#39;&#39;</span> <span style="color:#66d9ef">end</span>
+  <span style="color:#f92672">+</span> <span style="color:#66d9ef">case</span> <span style="color:#66d9ef">when</span> index_col(<span style="color:#f92672">@</span>tableName, <span style="color:#f92672">@</span>indid, <span style="color:#ae81ff">10</span> )<span style="color:#66d9ef">is</span> <span style="color:#66d9ef">not</span> <span style="color:#66d9ef">null</span> <span style="color:#66d9ef">then</span> <span style="color:#e6db74">&#39;,&#39;</span> <span style="color:#f92672">+</span> index_col(<span style="color:#f92672">@</span>tableName, <span style="color:#f92672">@</span>indid, <span style="color:#ae81ff">10</span> ) <span style="color:#66d9ef">else</span> <span style="color:#e6db74">&#39;&#39;</span> <span style="color:#66d9ef">end</span>
+  <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;)&#39;</span> 
+  <span style="color:#f92672">+</span> <span style="color:#f92672">@</span>fillfactorString
+ <span style="color:#66d9ef">insert</span> <span style="color:#66d9ef">into</span> <span style="color:#f92672">#</span>tmpTable (<span style="color:#66d9ef">sql</span>)<span style="color:#66d9ef">values</span>(<span style="color:#f92672">@</span><span style="color:#66d9ef">sql</span>)
+
+ <span style="color:#66d9ef">FETCH</span> <span style="color:#66d9ef">NEXT</span> <span style="color:#66d9ef">FROM</span> myCursor <span style="color:#66d9ef">into</span> <span style="color:#f92672">@</span>tableName,<span style="color:#f92672">@</span>indexName,<span style="color:#f92672">@</span>status,<span style="color:#f92672">@</span>OrigFillFactor,<span style="color:#f92672">@</span>columnName,<span style="color:#f92672">@</span>indid
+<span style="color:#66d9ef">end</span>
+<span style="color:#66d9ef">CLOSE</span> myCursor
+<span style="color:#66d9ef">DEALLOCATE</span> myCursor
+
+<span style="color:#66d9ef">select</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">from</span> <span style="color:#f92672">#</span>tmpTable
+
+<span style="color:#66d9ef">drop</span> <span style="color:#66d9ef">table</span> <span style="color:#f92672">#</span>tmpTable
+<span style="color:#66d9ef">GO</span>
+<span style="color:#66d9ef">SET</span> QUOTED_IDENTIFIER <span style="color:#66d9ef">OFF</span>
+<span style="color:#66d9ef">GO</span>
+<span style="color:#66d9ef">SET</span> ANSI_NULLS <span style="color:#66d9ef">ON</span>
+<span style="color:#66d9ef">GO</span>
+
+<span style="color:#66d9ef">SET</span> QUOTED_IDENTIFIER <span style="color:#66d9ef">OFF</span>
+<span style="color:#66d9ef">GO</span>
+<span style="color:#66d9ef">SET</span> ANSI_NULLS <span style="color:#66d9ef">OFF</span>
+<span style="color:#66d9ef">GO</span>
+
+
+<span style="color:#75715e">/*
+</span><span style="color:#75715e"> Generate PK &amp;&amp; UQ Constraints 
+</span><span style="color:#75715e"> For Sql Server 2000
+</span><span style="color:#75715e"> beiqiao（qbboxcn@hotmail.com） 2004/02/29
+</span><span style="color:#75715e">*/</span>
+<span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">PROCEDURE</span> sp_create_pk_uq <span style="color:#66d9ef">AS</span>
+<span style="color:#66d9ef">declare</span> <span style="color:#f92672">@</span>oldTableName nvarchar(<span style="color:#ae81ff">128</span>)
+<span style="color:#66d9ef">declare</span> <span style="color:#f92672">@</span>sqlString nvarchar(<span style="color:#ae81ff">1024</span>)
+<span style="color:#66d9ef">declare</span> <span style="color:#f92672">@</span>columnList nvarchar(<span style="color:#ae81ff">1024</span>)
+
+<span style="color:#66d9ef">declare</span> <span style="color:#f92672">@</span>constraintName nvarchar(<span style="color:#ae81ff">128</span>)
+<span style="color:#66d9ef">declare</span> <span style="color:#f92672">@</span>oldConstraintName nvarchar(<span style="color:#ae81ff">128</span>)
+<span style="color:#66d9ef">declare</span> <span style="color:#f92672">@</span>tableName nvarchar(<span style="color:#ae81ff">1024</span>)
+<span style="color:#66d9ef">declare</span> <span style="color:#f92672">@</span>columnName nvarchar(<span style="color:#ae81ff">1024</span>)
+<span style="color:#66d9ef">declare</span> <span style="color:#f92672">@</span>indexId smallint
+<span style="color:#66d9ef">declare</span> <span style="color:#f92672">@</span>objType char(<span style="color:#ae81ff">2</span>)
+
+<span style="color:#66d9ef">declare</span> <span style="color:#f92672">@</span>oldIndexId smallint
+<span style="color:#66d9ef">declare</span> <span style="color:#f92672">@</span>oldObjType char(<span style="color:#ae81ff">2</span>)
+<span style="color:#66d9ef">declare</span> <span style="color:#f92672">@</span>clusteredString nvarchar(<span style="color:#ae81ff">16</span>)
+<span style="color:#66d9ef">declare</span> <span style="color:#f92672">@</span>objTypeString nvarchar(<span style="color:#ae81ff">16</span>)
+
+<span style="color:#66d9ef">select</span> <span style="color:#f92672">@</span>oldIndexId <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+<span style="color:#66d9ef">select</span> <span style="color:#f92672">@</span>oldObjType <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;PK&#39;</span>
+<span style="color:#66d9ef">select</span> <span style="color:#f92672">@</span>oldConstraintName <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;</span>
+<span style="color:#66d9ef">select</span> <span style="color:#f92672">@</span>oldTableName <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;</span>
+<span style="color:#66d9ef">select</span> <span style="color:#f92672">@</span>sqlString <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;</span>
+<span style="color:#66d9ef">select</span> <span style="color:#f92672">@</span>columnList <span style="color:#f92672">=</span><span style="color:#e6db74">&#39;&#39;</span>
+<span style="color:#66d9ef">select</span> <span style="color:#f92672">@</span>clusteredString <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39; CLUSTERED &#39;</span>
+<span style="color:#66d9ef">select</span> <span style="color:#f92672">@</span>objTypeString <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39; PRIMARY KEY  &#39;</span>
+
+<span style="color:#66d9ef">create</span> <span style="color:#66d9ef">table</span> <span style="color:#f92672">#</span>tmpTable (<span style="color:#66d9ef">sql</span> nvarchar(<span style="color:#ae81ff">4000</span>))
+
+<span style="color:#66d9ef">DECLARE</span> myCursor  <span style="color:#66d9ef">CURSOR</span> <span style="color:#66d9ef">FOR</span>
+<span style="color:#66d9ef">select</span>
+ i.name     <span style="color:#66d9ef">as</span> constraintName
+ ,t_obj.name    <span style="color:#66d9ef">as</span> tableName
+ ,col.name    <span style="color:#66d9ef">as</span> columnName
+ ,i.indid    <span style="color:#66d9ef">as</span> indexId
+ ,c_obj.xtype    <span style="color:#66d9ef">as</span> objType
+<span style="color:#66d9ef">from</span>
+ sysobjects  c_obj
+ ,sysobjects  t_obj
+ ,syscolumns  col
+ ,master.dbo.spt_values  v
+ ,sysindexes  i
+<span style="color:#66d9ef">where</span>
+ c_obj.xtype <span style="color:#66d9ef">in</span> (<span style="color:#e6db74">&#39;UQ&#39;</span> ,<span style="color:#e6db74">&#39;PK&#39;</span>)
+ <span style="color:#66d9ef">and</span> t_obj.id <span style="color:#f92672">=</span> c_obj.parent_obj
+ <span style="color:#66d9ef">and</span> t_obj.xtype  <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;U&#39;</span>
+ <span style="color:#66d9ef">and</span> t_obj.id <span style="color:#f92672">=</span> col.id
+ <span style="color:#66d9ef">and</span> col.name <span style="color:#f92672">=</span> index_col(t_obj.name,i.indid,v.number)
+ <span style="color:#66d9ef">and</span> t_obj.id <span style="color:#f92672">=</span> i.id
+ <span style="color:#66d9ef">and</span> c_obj.name  <span style="color:#f92672">=</span> i.name
+ <span style="color:#66d9ef">and</span> v.number  <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>
+  <span style="color:#66d9ef">and</span> v.number  <span style="color:#f92672">&lt;=</span> i.keycnt
+  <span style="color:#66d9ef">and</span> v.<span style="color:#66d9ef">type</span>  <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;P&#39;</span>
+ <span style="color:#66d9ef">and</span> t_obj.status <span style="color:#f92672">&gt;</span><span style="color:#ae81ff">0</span>
+<span style="color:#66d9ef">order</span> <span style="color:#66d9ef">by</span> tablename
+
+<span style="color:#66d9ef">OPEN</span> myCursor
+
+<span style="color:#66d9ef">FETCH</span> <span style="color:#66d9ef">NEXT</span> <span style="color:#66d9ef">FROM</span> myCursor <span style="color:#66d9ef">into</span> <span style="color:#f92672">@</span>constraintName, <span style="color:#f92672">@</span>tableName, <span style="color:#f92672">@</span>columnName, <span style="color:#f92672">@</span>indexId, <span style="color:#f92672">@</span>objType
+
+WHILE <span style="color:#f92672">@@</span>FETCH_STATUS <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+<span style="color:#66d9ef">BEGIN</span>
+
+ <span style="color:#66d9ef">if</span> <span style="color:#f92672">@</span>constraintName <span style="color:#f92672">&lt;&gt;</span> <span style="color:#f92672">@</span>oldConstraintName <span style="color:#66d9ef">and</span> <span style="color:#f92672">@</span>oldConstraintName <span style="color:#f92672">&lt;&gt;</span> <span style="color:#e6db74">&#39;&#39;</span>
+ <span style="color:#66d9ef">begin</span>
+  <span style="color:#75715e">--删除最后一个逗号
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">select</span> <span style="color:#f92672">@</span>columnList <span style="color:#f92672">=</span> <span style="color:#66d9ef">substring</span>( <span style="color:#f92672">@</span>columnList, <span style="color:#ae81ff">1</span>, len(<span style="color:#f92672">@</span>columnList)<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span> )
+ 
+  <span style="color:#66d9ef">if</span> <span style="color:#f92672">@</span>oldIndexId <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">1</span>
+   <span style="color:#66d9ef">select</span> <span style="color:#f92672">@</span>clusteredString <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39; NONCLUSTERED &#39;</span>
+  <span style="color:#66d9ef">else</span>
+   <span style="color:#66d9ef">select</span> <span style="color:#f92672">@</span>clusteredString <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39; CLUSTERED &#39;</span>
+ 
+  <span style="color:#66d9ef">if</span> <span style="color:#f92672">@</span>oldObjType <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;UQ&#39;</span>
+   <span style="color:#66d9ef">select</span> <span style="color:#f92672">@</span>objTypeString <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39; UNIQUE &#39;</span>
+  <span style="color:#66d9ef">else</span>
+   <span style="color:#66d9ef">select</span> <span style="color:#f92672">@</span>objTypeString <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39; PRIMARY KEY &#39;</span> 
+
+  <span style="color:#66d9ef">select</span> <span style="color:#f92672">@</span>sqlString <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;alter table &#39;</span> <span style="color:#f92672">+</span> <span style="color:#f92672">@</span>oldTableName <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39; WITH NOCHECK ADD CONSTRAINT &#39;</span> <span style="color:#f92672">+</span>
+   <span style="color:#f92672">@</span>oldConstraintName <span style="color:#f92672">+</span> <span style="color:#f92672">@</span>objTypeString <span style="color:#f92672">+</span> <span style="color:#f92672">@</span>clusteredString <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39; (&#39;</span> <span style="color:#f92672">+</span> <span style="color:#f92672">@</span>columnList <span style="color:#f92672">+</span><span style="color:#e6db74">&#39;)&#39;</span>
+ 
+  <span style="color:#75715e">--下一个columnlist开始
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">select</span> <span style="color:#f92672">@</span>columnList <span style="color:#f92672">=</span><span style="color:#e6db74">&#39;&#39;</span>
+
+  <span style="color:#66d9ef">insert</span> <span style="color:#66d9ef">into</span> <span style="color:#f92672">#</span>tmpTable (<span style="color:#66d9ef">sql</span>)<span style="color:#66d9ef">values</span>(<span style="color:#f92672">@</span>sqlString)
+ <span style="color:#66d9ef">end</span>
+ 
+ <span style="color:#66d9ef">select</span> <span style="color:#f92672">@</span>oldTableName <span style="color:#f92672">=</span> <span style="color:#f92672">@</span>tableName
+ <span style="color:#66d9ef">select</span> <span style="color:#f92672">@</span>oldConstraintName <span style="color:#f92672">=</span> <span style="color:#f92672">@</span>constraintName
+ <span style="color:#66d9ef">select</span> <span style="color:#f92672">@</span>oldIndexId <span style="color:#f92672">=</span> <span style="color:#f92672">@</span>indexId
+ <span style="color:#66d9ef">select</span> <span style="color:#f92672">@</span>oldObjType <span style="color:#f92672">=</span> <span style="color:#f92672">@</span>objType
+
+ <span style="color:#66d9ef">select</span> <span style="color:#f92672">@</span>columnList <span style="color:#f92672">=</span> <span style="color:#f92672">@</span>columnList <span style="color:#f92672">+</span> <span style="color:#f92672">@</span>columnName <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;, &#39;</span>
+
+    <span style="color:#66d9ef">FETCH</span> <span style="color:#66d9ef">NEXT</span> <span style="color:#66d9ef">FROM</span> myCursor <span style="color:#66d9ef">into</span> <span style="color:#f92672">@</span>constraintName, <span style="color:#f92672">@</span>tableName, <span style="color:#f92672">@</span>columnName, <span style="color:#f92672">@</span>indexId, <span style="color:#f92672">@</span>objType
+<span style="color:#66d9ef">END</span>
+
+<span style="color:#66d9ef">select</span> <span style="color:#f92672">@</span>columnList <span style="color:#f92672">=</span> <span style="color:#66d9ef">substring</span>( <span style="color:#f92672">@</span>columnList, <span style="color:#ae81ff">1</span>, len(<span style="color:#f92672">@</span>columnList)<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span> )
+ 
+<span style="color:#75715e">--插入最后一条记录
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">if</span> <span style="color:#f92672">@</span>oldIndexId <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">1</span>
+ <span style="color:#66d9ef">select</span> <span style="color:#f92672">@</span>clusteredString <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39; NONCLUSTERED &#39;</span>
+<span style="color:#66d9ef">else</span>
+ <span style="color:#66d9ef">select</span> <span style="color:#f92672">@</span>clusteredString <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39; CLUSTERED &#39;</span>
+
+<span style="color:#66d9ef">if</span> <span style="color:#f92672">@</span>oldObjType <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;UQ&#39;</span>
+ <span style="color:#66d9ef">select</span> <span style="color:#f92672">@</span>objTypeString <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39; UNIQUE &#39;</span>
+<span style="color:#66d9ef">else</span>
+ <span style="color:#66d9ef">select</span> <span style="color:#f92672">@</span>objTypeString <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39; PRIMARY KEY &#39;</span> 
+
+<span style="color:#66d9ef">select</span> <span style="color:#f92672">@</span>sqlString <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;alter table &#39;</span> <span style="color:#f92672">+</span> <span style="color:#f92672">@</span>oldTableName <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39; WITH NOCHECK ADD CONSTRAINT &#39;</span> <span style="color:#f92672">+</span>
+  <span style="color:#f92672">@</span>oldConstraintName <span style="color:#f92672">+</span> <span style="color:#f92672">@</span>objTypeString <span style="color:#f92672">+</span> <span style="color:#f92672">@</span>clusteredString <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39; (&#39;</span> <span style="color:#f92672">+</span> <span style="color:#f92672">@</span>columnList <span style="color:#f92672">+</span><span style="color:#e6db74">&#39;)&#39;</span>
+<span style="color:#66d9ef">insert</span> <span style="color:#66d9ef">into</span> <span style="color:#f92672">#</span>tmpTable (<span style="color:#66d9ef">sql</span>)<span style="color:#66d9ef">values</span>(<span style="color:#f92672">@</span>sqlString)
+
+<span style="color:#66d9ef">CLOSE</span> myCursor
+<span style="color:#66d9ef">DEALLOCATE</span> myCursor
+
+<span style="color:#66d9ef">select</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">from</span> <span style="color:#f92672">#</span>tmpTable
+<span style="color:#66d9ef">drop</span> <span style="color:#66d9ef">table</span> <span style="color:#f92672">#</span>tmpTable
+<span style="color:#66d9ef">GO</span>
+<span style="color:#66d9ef">SET</span> QUOTED_IDENTIFIER <span style="color:#66d9ef">OFF</span>
+<span style="color:#66d9ef">GO</span>
+<span style="color:#66d9ef">SET</span> ANSI_NULLS <span style="color:#66d9ef">ON</span>
+<span style="color:#66d9ef">GO</span>
+
+<span style="color:#66d9ef">SET</span> QUOTED_IDENTIFIER <span style="color:#66d9ef">OFF</span>
+<span style="color:#66d9ef">GO</span>
+<span style="color:#66d9ef">SET</span> ANSI_NULLS <span style="color:#66d9ef">OFF</span>
+<span style="color:#66d9ef">GO</span>
+
+
+<span style="color:#75715e">/*
+</span><span style="color:#75715e"> Generate Store Procduce &amp;&amp; Views &amp;&amp; Funcions &amp;&amp; Triggers
+</span><span style="color:#75715e"> For Sql Server 2000
+</span><span style="color:#75715e"> beiqiao（qbboxcn@hotmail.com） 2004/02/29
+</span><span style="color:#75715e">*/</span>
+<span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">PROCEDURE</span> sp_create_proc <span style="color:#66d9ef">AS</span>
+<span style="color:#66d9ef">select</span> b.text <span style="color:#66d9ef">as</span> <span style="color:#66d9ef">sql</span> <span style="color:#66d9ef">from</span> sysobjects a,syscomments b <span style="color:#66d9ef">where</span> a.xtype <span style="color:#66d9ef">in</span> (<span style="color:#e6db74">&#39;TR&#39;</span>,<span style="color:#e6db74">&#39;TF&#39;</span>,<span style="color:#e6db74">&#39;V&#39;</span>,<span style="color:#e6db74">&#39;P&#39;</span>) <span style="color:#66d9ef">and</span> a.id <span style="color:#f92672">=</span> b.id <span style="color:#66d9ef">and</span> a.status <span style="color:#f92672">&gt;</span><span style="color:#ae81ff">0</span>
+
+<span style="color:#66d9ef">GO</span>
+<span style="color:#66d9ef">SET</span> QUOTED_IDENTIFIER <span style="color:#66d9ef">OFF</span>
+<span style="color:#66d9ef">GO</span>
+<span style="color:#66d9ef">SET</span> ANSI_NULLS <span style="color:#66d9ef">ON</span>
+<span style="color:#66d9ef">GO</span>
+
+<span style="color:#66d9ef">SET</span> QUOTED_IDENTIFIER <span style="color:#66d9ef">OFF</span>
+<span style="color:#66d9ef">GO</span>
+<span style="color:#66d9ef">SET</span> ANSI_NULLS <span style="color:#66d9ef">OFF</span>
+<span style="color:#66d9ef">GO</span>
+
+
+<span style="color:#75715e">/*
+</span><span style="color:#75715e"> Generate Tables 
+</span><span style="color:#75715e"> For Sql Server 2000
+</span><span style="color:#75715e"> beiqiao（qbboxcn@hotmail.com） 2004/02/29
+</span><span style="color:#75715e">*/</span>
+<span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">PROCEDURE</span> sp_create_table <span style="color:#66d9ef">AS</span>
+<span style="color:#66d9ef">declare</span> <span style="color:#f92672">@</span><span style="color:#66d9ef">count</span> int
+<span style="color:#66d9ef">declare</span> <span style="color:#f92672">@</span>tableName nvarchar(<span style="color:#ae81ff">128</span>)
+<span style="color:#66d9ef">declare</span> <span style="color:#f92672">@</span>columnName nvarchar(<span style="color:#ae81ff">128</span>)
+<span style="color:#66d9ef">declare</span> <span style="color:#f92672">@</span>columnLength smallint
+<span style="color:#66d9ef">declare</span> <span style="color:#f92672">@</span>isnullable int
+<span style="color:#66d9ef">declare</span> <span style="color:#f92672">@</span>typeName nvarchar(<span style="color:#ae81ff">128</span>)
+<span style="color:#66d9ef">declare</span> <span style="color:#f92672">@</span>autoval nvarchar(<span style="color:#ae81ff">128</span>)
+
+<span style="color:#66d9ef">declare</span> <span style="color:#f92672">@</span>oldTableName nvarchar(<span style="color:#ae81ff">128</span>)
+<span style="color:#66d9ef">declare</span> <span style="color:#f92672">@</span>sqlString nvarchar(<span style="color:#ae81ff">1024</span>)
+<span style="color:#66d9ef">declare</span> <span style="color:#f92672">@</span>columnList nvarchar(<span style="color:#ae81ff">1024</span>)
+
+<span style="color:#66d9ef">declare</span> <span style="color:#f92672">@</span>identityString nvarchar(<span style="color:#ae81ff">128</span>)
+
+<span style="color:#66d9ef">select</span> <span style="color:#f92672">@</span>oldTableName <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;</span>
+<span style="color:#66d9ef">select</span> <span style="color:#f92672">@</span>columnList <span style="color:#f92672">=</span><span style="color:#e6db74">&#39;&#39;</span>
+
+<span style="color:#66d9ef">create</span> <span style="color:#66d9ef">table</span> <span style="color:#f92672">#</span>tmpTable (<span style="color:#66d9ef">sql</span> nvarchar(<span style="color:#ae81ff">4000</span>))
+
+<span style="color:#66d9ef">DECLARE</span> myCursor  <span style="color:#66d9ef">CURSOR</span> <span style="color:#66d9ef">FOR</span>
+<span style="color:#66d9ef">SELECT</span> a.name <span style="color:#66d9ef">as</span> tableName, b.name <span style="color:#66d9ef">as</span> columnName, b.<span style="color:#66d9ef">Length</span> <span style="color:#66d9ef">as</span> columnLength, b.isnullable, <span style="color:#66d9ef">c</span>.name <span style="color:#66d9ef">as</span> typeName, b.autoval
+<span style="color:#66d9ef">from</span> sysobjects a, syscolumns b, systypes <span style="color:#66d9ef">c</span> 
+<span style="color:#66d9ef">where</span> a.xtype <span style="color:#f92672">=</span><span style="color:#e6db74">&#39;U&#39;</span>  <span style="color:#66d9ef">and</span> a.status <span style="color:#f92672">&gt;</span><span style="color:#ae81ff">0</span> <span style="color:#66d9ef">and</span> a.id <span style="color:#f92672">=</span> b.id <span style="color:#66d9ef">and</span> b.xtype <span style="color:#f92672">=</span> <span style="color:#66d9ef">c</span>.xtype <span style="color:#75715e">--a.status &gt;0 是为了过滤表dtproperties
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">OPEN</span> myCursor
+
+<span style="color:#66d9ef">FETCH</span> <span style="color:#66d9ef">NEXT</span> <span style="color:#66d9ef">FROM</span> myCursor <span style="color:#66d9ef">into</span> <span style="color:#f92672">@</span>tableName,<span style="color:#f92672">@</span>columnName,<span style="color:#f92672">@</span>columnLength,<span style="color:#f92672">@</span>isnullable,<span style="color:#f92672">@</span>typeName,<span style="color:#f92672">@</span>autoval
+
+WHILE <span style="color:#f92672">@@</span>FETCH_STATUS <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+<span style="color:#66d9ef">BEGIN</span>
+
+ <span style="color:#66d9ef">if</span> <span style="color:#f92672">@</span>tableName <span style="color:#f92672">&lt;&gt;</span> <span style="color:#f92672">@</span>oldTableName <span style="color:#66d9ef">and</span> <span style="color:#f92672">@</span>oldTableName <span style="color:#f92672">&lt;&gt;</span> <span style="color:#e6db74">&#39;&#39;</span>
+ <span style="color:#66d9ef">begin</span>
+  <span style="color:#75715e">--删除最后一个逗号
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">select</span> <span style="color:#f92672">@</span>columnList <span style="color:#f92672">=</span> <span style="color:#66d9ef">substring</span>( <span style="color:#f92672">@</span>columnList, <span style="color:#ae81ff">1</span>, len(<span style="color:#f92672">@</span>columnList)<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span> )
+
+  <span style="color:#66d9ef">select</span> <span style="color:#f92672">@</span>sqlString <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;create table &#39;</span> <span style="color:#f92672">+</span> <span style="color:#f92672">@</span>oldTableName <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39; (&#39;</span> <span style="color:#f92672">+</span> <span style="color:#f92672">@</span>columnList <span style="color:#f92672">+</span><span style="color:#e6db74">&#39;)&#39;</span>
+ 
+  <span style="color:#75715e">--下一个columnlist开始
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">select</span> <span style="color:#f92672">@</span>columnList <span style="color:#f92672">=</span><span style="color:#e6db74">&#39;&#39;</span>
+
+      <span style="color:#66d9ef">insert</span> <span style="color:#66d9ef">into</span> <span style="color:#f92672">#</span>tmpTable (<span style="color:#66d9ef">sql</span>)<span style="color:#66d9ef">values</span>(<span style="color:#f92672">@</span>sqlString)
+ <span style="color:#66d9ef">end</span>
+ 
+ <span style="color:#66d9ef">select</span> <span style="color:#f92672">@</span>oldTableName <span style="color:#f92672">=</span> <span style="color:#f92672">@</span>tableName
+
+ <span style="color:#66d9ef">select</span> <span style="color:#f92672">@</span>columnList <span style="color:#f92672">=</span> <span style="color:#f92672">@</span>columnList <span style="color:#f92672">+</span> <span style="color:#f92672">@</span>columnName <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39; &#39;</span> <span style="color:#f92672">+</span> <span style="color:#f92672">@</span>typeName
+ 
+ <span style="color:#75715e">--添加数据类型的长度声明
+</span><span style="color:#75715e"></span> <span style="color:#66d9ef">if</span> <span style="color:#f92672">@</span>typeName <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;varchar&#39;</span> <span style="color:#66d9ef">or</span> <span style="color:#f92672">@</span>typeName <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;char&#39;</span> <span style="color:#66d9ef">or</span> <span style="color:#f92672">@</span>typeName <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;nchar&#39;</span> <span style="color:#66d9ef">or</span> <span style="color:#f92672">@</span>typeName <span style="color:#f92672">=</span><span style="color:#e6db74">&#39;nvarchar&#39;</span>
+  <span style="color:#66d9ef">select</span> <span style="color:#f92672">@</span>columnList <span style="color:#f92672">=</span> <span style="color:#f92672">@</span>columnList <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;(&#39;</span> <span style="color:#f92672">+</span> rtrim(ltrim(str(<span style="color:#f92672">@</span>columnLength))) <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;)&#39;</span>
+
+ <span style="color:#75715e">--添加IDENTITY限定
+</span><span style="color:#75715e"></span> <span style="color:#66d9ef">if</span> <span style="color:#f92672">@</span>autoval <span style="color:#66d9ef">is</span> <span style="color:#66d9ef">not</span> <span style="color:#66d9ef">null</span>
+ <span style="color:#66d9ef">begin</span>
+  <span style="color:#66d9ef">select</span> <span style="color:#f92672">@</span>identityString <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39; IDENTITY(&#39;</span> <span style="color:#f92672">+</span> ltrim(rtrim(str(IDENT_SEED( <span style="color:#f92672">@</span>tableName )))) <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;,&#39;</span> <span style="color:#f92672">+</span>ltrim(rtrim(str(IDENT_INCR( <span style="color:#f92672">@</span>tableName )))) <span style="color:#f92672">+</span><span style="color:#e6db74">&#39;)&#39;</span>
+  <span style="color:#66d9ef">select</span> <span style="color:#f92672">@</span>columnList <span style="color:#f92672">=</span> <span style="color:#f92672">@</span>columnList <span style="color:#f92672">+</span> <span style="color:#f92672">@</span>identityString
+ <span style="color:#66d9ef">end</span>
+ 
+ <span style="color:#75715e">--添加null限定
+</span><span style="color:#75715e"></span> <span style="color:#66d9ef">if</span> <span style="color:#f92672">@</span>isnullable <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;1&#39;</span>
+  <span style="color:#66d9ef">select</span> <span style="color:#f92672">@</span>columnList <span style="color:#f92672">=</span> <span style="color:#f92672">@</span>columnList <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39; null&#39;</span>
+ <span style="color:#66d9ef">else</span>
+  <span style="color:#66d9ef">select</span> <span style="color:#f92672">@</span>columnList <span style="color:#f92672">=</span> <span style="color:#f92672">@</span>columnList <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39; not null&#39;</span>
+ 
+ <span style="color:#75715e">--逗号分割
+</span><span style="color:#75715e"></span> <span style="color:#66d9ef">select</span> <span style="color:#f92672">@</span>columnList <span style="color:#f92672">=</span> <span style="color:#f92672">@</span>columnList <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;, &#39;</span>
+
+    <span style="color:#66d9ef">FETCH</span> <span style="color:#66d9ef">NEXT</span> <span style="color:#66d9ef">FROM</span> myCursor <span style="color:#66d9ef">into</span> <span style="color:#f92672">@</span>tableName,<span style="color:#f92672">@</span>columnName,<span style="color:#f92672">@</span>columnLength,<span style="color:#f92672">@</span>isnullable,<span style="color:#f92672">@</span>typeName,<span style="color:#f92672">@</span>autoval
+<span style="color:#66d9ef">END</span>
+
+<span style="color:#75715e">--插入最后一条记录
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">select</span> <span style="color:#f92672">@</span>columnList <span style="color:#f92672">=</span> <span style="color:#66d9ef">substring</span>( <span style="color:#f92672">@</span>columnList, <span style="color:#ae81ff">1</span>, len(<span style="color:#f92672">@</span>columnList)<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span> )
+<span style="color:#66d9ef">select</span> <span style="color:#f92672">@</span>sqlString <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;create table &#39;</span> <span style="color:#f92672">+</span> <span style="color:#f92672">@</span>oldTableName <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39; (&#39;</span> <span style="color:#f92672">+</span> <span style="color:#f92672">@</span>columnList <span style="color:#f92672">+</span><span style="color:#e6db74">&#39;)&#39;</span>
+<span style="color:#66d9ef">insert</span> <span style="color:#66d9ef">into</span> <span style="color:#f92672">#</span>tmpTable (<span style="color:#66d9ef">sql</span>)<span style="color:#66d9ef">values</span>(<span style="color:#f92672">@</span>sqlString)
+
+<span style="color:#66d9ef">CLOSE</span> myCursor
+<span style="color:#66d9ef">DEALLOCATE</span> myCursor
+
+<span style="color:#66d9ef">select</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">from</span> <span style="color:#f92672">#</span>tmpTable
+<span style="color:#66d9ef">drop</span> <span style="color:#66d9ef">table</span> <span style="color:#f92672">#</span>tmpTable</code></pre></div>
+
+</article>
+
+
+<section class="post-nav">
+    <ul>
+        
+        <li>
+            <a href="https://boqiao.github.io/posts/docker/"><i class="fa fa-chevron-circle-left"></i> docker operator log</a>
+        </li>
+        
+        
+    </ul>
+</section>
+    
+
+
+
+
+
+</main>
+    <footer>
+        <h6>Copyright &copy; 2019 - John |
+            Rendered by <a href="https://gohugo.io" title="Hugo">Hugo</a> |
+            <a href="https://boqiao.github.io/index.xml">Subscribe </a></h6>
+    </footer>
+</div>
+<script src="https://boqiao.github.io/js/scripts.js"></script>
+
+</body>
+
+</html>
+
