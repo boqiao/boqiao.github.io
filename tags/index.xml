@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
  <channel>
    <title>Tags on John</title>
-   <link>http://boqiao.github.io/tags/</link>
+   <link>https://boqiao.github.io/tags/</link>
    <description>Recent content in Tags on John</description>
    <generator>Hugo -- gohugo.io</generator>
    <language>en-us</language>
    <copyright>Copyright &amp;copy; 2019 - John</copyright>
    <lastBuildDate>Sat, 23 Nov 2019 23:00:42 +1300</lastBuildDate>
    
-       <atom:link href="http://boqiao.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+       <atom:link href="https://boqiao.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
    
    
      <item>
        <title>docker operator log</title>
-       <link>http://boqiao.github.io/posts/docker/</link>
+       <link>https://boqiao.github.io/posts/docker/</link>
        <pubDate>Sat, 23 Nov 2019 23:00:42 +1300</pubDate>
        
-       <guid>http://boqiao.github.io/posts/docker/</guid>
+       <guid>https://boqiao.github.io/posts/docker/</guid>
        <description>
 
 &lt;h3 id=&#34;develop-c-on-mac-docker-mono&#34;&gt;develop c# on mac/docker/mono&lt;/h3&gt;
