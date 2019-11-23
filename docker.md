@@ -1,4 +1,4 @@
-#docker run mono c\#
+# docker run mono c\#
 ```sh
 docker pull mono
 docker run -i -t mono bash
@@ -8,13 +8,13 @@ mono hello.exe
 exit
 ```
 
-#docker Desktop for macOS share files
+# docker Desktop for macOS share files
 Perferences->file sharing->add /Users/qiaobo/local/mei
 ```sh
 docker run -it -v /Users/qiaobo/local/mei:/mei mono bash
 ```
 
-#develep static web site using nginx
+# develep static web site using nginx
 ```sh
 docker pull nginx
 docker network create my-net
