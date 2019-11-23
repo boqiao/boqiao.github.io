@@ -7,7 +7,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content="A man like fishing" />
-  <meta name="author" content="John" /><link rel="alternate" type="application/rss+xml+xml" href="http://boqiao.github.io/index.xml" title="John" /><meta name="generator" content="Hugo 0.59.1" />
+  <meta name="author" content="John" /><meta name="generator" content="Hugo 0.59.1" />
     
 
   <meta property="og:title" content="Categories" />
@@ -58,12 +58,12 @@
 
 
 
-<section id="home">
-        <ul>
-          
-          <li class="first">
-            <h1><a href="http://boqiao.github.io/posts/docker/" title="docker operator log">docker operator log</a></h1>
-            <aside>
+<article>
+
+    <h1>docker operator log</h1>
+
+    
+        <aside>
     <ul>
         <li>
             <time class="post-date" datetime="2019-11-23T23:00:42&#43;13:00">Nov 23, 2019</time>
@@ -104,14 +104,42 @@
     </ul>
 </aside>
 
-            <p>develop c# on mac/docker/mono docker pull mono docker run -it mono bash echo &#39;using System; public class HelloWorld { public static void Main(string[] args) { Console.WriteLine (&#34;Hello Mono World&#34;);}}&#39; &gt;hello.</p>
-            
-            <a href="http://boqiao.github.io/posts/docker/">Read more…</a>
-            
-          </li>
-          
-        </ul>
-      </section>
+    
+
+    
+
+<h3 id="develop-c-on-mac-docker-mono">develop c# on mac/docker/mono</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">docker pull mono
+docker run -it mono bash
+echo <span style="color:#e6db74">&#39;using System; public class HelloWorld { public static void Main(string[] args) { Console.WriteLine (&#34;Hello Mono World&#34;);}}&#39;</span> &gt;hello.cs
+csc hello.cs
+mono hello.exe
+exit</code></pre></div>
+<h3 id="docker-desktop-for-macos-share-files">docker Desktop for macOS share files</h3>
+
+<p>Perferences-&gt;file sharing-&gt;add /Users/qiaobo/local/mei</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">docker run -it -v /Users/qiaobo/local/mei:/mei mono bash</code></pre></div>
+<h3 id="develep-static-web-site-using-nginx">develep static web site using nginx</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">docker pull nginx
+docker network create my-net
+docker run -it --name mei-web --network my-net --publish <span style="color:#ae81ff">80</span>:80 -v /Users/qiaobo/local/mei:/usr/share/nginx/html nginx bash</code></pre></div>
+<p>after that, you can</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">docker start mei-web
+docker attach mei-web
+nginx</code></pre></div>
+
+</article>
+
+
+<section class="post-nav">
+    <ul>
+        
+        
+    </ul>
+</section>
+    
+
+
 
 
 
