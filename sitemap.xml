@@ -13,7 +13,12 @@
   </url>
   
   <url>
-    <loc>https://boqiao.github.io/categories/docker-pandoc-markdown-hugo/</loc>
+    <loc>https://boqiao.github.io/tags/docker/</loc>
+    <lastmod>2019-12-17T11:11:42+13:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://boqiao.github.io/tags/hugo/</loc>
     <lastmod>2019-12-17T11:11:42+13:00</lastmod>
   </url>
   
@@ -23,7 +28,27 @@
   </url>
   
   <url>
+    <loc>https://boqiao.github.io/tags/markdown/</loc>
+    <lastmod>2019-12-17T11:11:42+13:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://boqiao.github.io/tags/pandoc/</loc>
+    <lastmod>2019-12-17T11:11:42+13:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://boqiao.github.io/posts/</loc>
+    <lastmod>2019-12-17T11:11:42+13:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://boqiao.github.io/tags/</loc>
+    <lastmod>2019-12-17T11:11:42+13:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://boqiao.github.io/categories/tech/</loc>
     <lastmod>2019-12-17T11:11:42+13:00</lastmod>
   </url>
   
@@ -35,21 +60,6 @@
   <url>
     <loc>https://boqiao.github.io/posts/sqlsvr_backup_script/</loc>
     <lastmod>2019-11-24T11:13:42+13:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://boqiao.github.io/tags/</loc>
-    <lastmod>2019-11-24T11:13:42+13:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://boqiao.github.io/categories/tech/</loc>
-    <lastmod>2019-11-24T11:13:42+13:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://boqiao.github.io/tags/docker/</loc>
-    <lastmod>2019-11-23T23:00:42+13:00</lastmod>
   </url>
   
   <url>
