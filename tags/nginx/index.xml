@@ -604,13 +604,9 @@ docker run -it --name mei-web --network my-net --publish &lt;span style=&#34;col
 docker attach mei-web
 nginx&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;h3 id=&#34;convert-markdown-to-docx&#34;&gt;convert markdown to docx&lt;/h3&gt;
-
-&lt;p&gt;docker run &amp;ndash;volume &amp;ldquo;&lt;code&gt;pwd&lt;/code&gt;:/data&amp;rdquo; &amp;ndash;user &lt;code&gt;id -u&lt;/code&gt;:&lt;code&gt;id -g&lt;/code&gt; pandoc/latex:2.6 -t docx readme.md &amp;gt; readme.docx&lt;/p&gt;
-
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;docker run --volume &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;`pwd`:/data&amp;#34;&lt;/span&gt; --user &lt;span style=&#34;color:#e6db74&#34;&gt;`&lt;/span&gt;id -u&lt;span style=&#34;color:#e6db74&#34;&gt;`&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;`&lt;/span&gt;id -g&lt;span style=&#34;color:#e6db74&#34;&gt;`&lt;/span&gt; pandoc/latex:2.6 -t docx readme.md &amp;gt; readme.docx&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;h3 id=&#34;unrar&#34;&gt;unrar&lt;/h3&gt;
-
-&lt;p&gt;docker run &amp;ndash;rm -v $PWD:/files maxcnunes/unrar:latest unrar e -r TyGl.rar&lt;/p&gt;
-</description>
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;docker run --rm -v $PWD:/files maxcnunes/unrar:latest unrar e -r TyGl.rar&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
      </item>
    
  </channel>
