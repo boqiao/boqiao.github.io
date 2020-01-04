@@ -10,15 +10,15 @@
   <meta name="author" content="John" /><meta name="generator" content="Hugo 0.59.1" />
     
 
-  <meta property="og:title" content="sql server" />
+  <meta property="og:title" content="John" />
 <meta property="og:description" content="A man like fishing" />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="https://boqiao.github.io/tags/sql-server/" />
+<meta property="og:url" content="https://boqiao.github.io/" />
 
-<meta property="og:updated_time" content="2019-11-24T11:13:42+13:00" />
+<meta property="og:updated_time" content="2019-12-17T11:11:42+13:00" />
 
   <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="sql server"/>
+<meta name="twitter:title" content="John"/>
 <meta name="twitter:description" content="A man like fishing"/>
 
 
@@ -56,7 +56,6 @@
 </nav>
 
     <main>
-
 
 
 
@@ -129,6 +128,10 @@ docker run -it --name mei-web --network my-net --publish <span style="color:#ae8
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">docker start mei-web
 docker attach mei-web
 nginx</code></pre></div>
+<h3 id="convert-markdown-to-docx">convert markdown to docx</h3>
+
+<p>docker run &ndash;volume &ldquo;<code>pwd</code>:/data&rdquo; &ndash;user <code>id -u</code>:<code>id -g</code> pandoc/latex:2.6 -t docx readme.md &gt; readme.docx</p>
+
 
 </article>
 

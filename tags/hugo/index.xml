@@ -1,88 +1,617 @@
 
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
  <channel>
-   <title>mono on John</title>
-   <link>https://boqiao.github.io/tags/mono/</link>
-   <description>Recent content in mono on John</description>
+   <title>hugo on John</title>
+   <link>http://localost:1313/tags/hugo/</link>
+   <description>Recent content in hugo on John</description>
    <generator>Hugo -- gohugo.io</generator>
    <language>en-us</language>
    <copyright>Copyright &amp;copy; 2019 - John</copyright>
-   <lastBuildDate>Sat, 23 Nov 2019 23:00:42 +1300</lastBuildDate>
+   <lastBuildDate>Tue, 26 Nov 2019 14:11:42 +1300</lastBuildDate>
    
-       <atom:link href="https://boqiao.github.io/tags/mono/index.xml" rel="self" type="application/rss+xml" />
+       <atom:link href="http://localost:1313/tags/hugo/index.xml" rel="self" type="application/rss+xml" />
    
    
      <item>
-       <title>create CV with markdown and pandoc</title>
-       <link>https://boqiao.github.io/posts/cv-with-markdown-docker-pandoc/</link>
+       <title>create pandoc docker image</title>
+       <link>http://localost:1313/posts/cv-with-markdown-docker-pandoc/</link>
        <pubDate>Tue, 17 Dec 2019 11:11:42 +1300</pubDate>
        
-       <guid>https://boqiao.github.io/posts/cv-with-markdown-docker-pandoc/</guid>
+       <guid>http://localost:1313/posts/cv-with-markdown-docker-pandoc/</guid>
+       <description></description>
+     </item>
+   
+     <item>
+       <title>csharp cv</title>
+       <link>http://localost:1313/posts/cv_csharp/</link>
+       <pubDate>Tue, 17 Dec 2019 11:11:42 +1300</pubDate>
+       
+       <guid>http://localost:1313/posts/cv_csharp/</guid>
        <description>
 
-&lt;p&gt;I am not good at MS-Word so basiclly I try to avoid every possibility to use it.
-Sometimes it is unavoidable such as writing your CV. As a programmer I have reponsibility to make my &amp;lsquo;bytes&amp;rsquo; more cool than other mortals&amp;rsquo;s.&lt;/p&gt;
+&lt;style&gt;
+@media print {
+    .pagebreak {
+        clear: both;
+        page-break-after: always;
+    }
+}
 
-&lt;p&gt;Recently I find a way to &amp;lsquo;program&amp;rsquo; my CV and get lots of fun. From now my CV could be wirtten totally with
-plain text. I could edit them with any edit software on any platform. Meanwhile it is easy to be converted to any format.&lt;/p&gt;
+.lgray {
+  background-color:lightgray;
+}
+.clear {
+  clear:both;
+}
 
-&lt;h2 id=&#34;1-writing-a-cv-in-markdown-format-with-vim-notepad-sublime&#34;&gt;1. writing a CV in markdown format with Vim/Notepad/Sublime&lt;/h2&gt;
+.horizon150 ul li {
+float:left;
+width:150px;
+}
+&lt;/style&gt;
 
-&lt;p&gt;Markdown is very good format. It is easy to learn and easy to read.
-Because markfown file will be converted to HTML first. So I could add some html code in it such as &amp;lt;center&amp;gt;&amp;hellip;&amp;lt;/center&amp;gt;&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;&lt;p class=&#34;lgray&#34;&gt;Curriculum Vitae&lt;/p&gt;&lt;/center&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;center&gt;&lt;/p&gt;
 
-&lt;h2 id=&#34;2-view-it-in-hugo-and-publish-it-as-html&#34;&gt;2. view it in HUGO and publish it as HTML&lt;/h2&gt;
+&lt;h1 id=&#34;john&#34;&gt;John&lt;/h1&gt;
 
-&lt;p&gt;Here I use HUGO as my markdown translator which can convert markdown file to html file to view.
-HUGO is a static website generator. It is based on GoLang that means it could be installed in clean way.
-HUGO has two features which greatly increase my efficiency:&lt;/p&gt;
+&lt;p&gt;&lt;/center&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;center&gt;064-225296908&lt;/center&gt;
+&lt;center&gt;johnqiaobo@gmail.com&lt;/center&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;div class=&#34;pagebreak&#34;&gt;&lt;/div&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;center&gt;&lt;p class=&#34;lgray&#34;&gt;PROFILE&lt;/p&gt;&lt;/center&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;a-talented-programmer&#34;&gt;A talented programmer&lt;/h3&gt;
 
 &lt;ul&gt;
-&lt;li&gt;hot-develop: you can view the result immediately while you are editing the CV file. It dose not need switch from editor to browser and press ctrl+v any more.&lt;/li&gt;
-&lt;li&gt;modularize: I have several CVs for different recuiters. I had worked on pretty much projects. It will be very long and boring if I list thme all. So I pick up some projects and reorganize them to a CV. Moduarizing could do that very well. I just include different partial parts in CV file.&lt;/li&gt;
+&lt;li&gt;Very strong confidence in resolving problems&lt;/li&gt;
+&lt;li&gt;Extreme enthusiasm about implementing ideas with programming&lt;/li&gt;
+&lt;li&gt;Concentration on individual task, even for weeks&lt;/li&gt;
+&lt;li&gt;Super self-taught ability to acquire new skills in a short time&lt;/li&gt;
+&lt;li&gt;A Database pro&lt;/li&gt;
+&lt;li&gt;An outdoor lover, and a basketball /football /fishing fan&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2 id=&#34;3-modify-html-markdown-content-with-sed&#34;&gt;3. modify HTML/Markdown content with sed&lt;/h2&gt;
+&lt;p&gt;&lt;center&gt;&lt;p class=&#34;lgray&#34;&gt;STRENGTHS&lt;/p&gt;&lt;/center&gt;&lt;/p&gt;
 
-&lt;p&gt;I usually delete some content before converting stage.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# delete lines between &amp;lt;aside&amp;gt; and &amp;lt;/aside&amp;gt; [Mac version]&lt;/span&gt;
-sed -i &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;/^ *&amp;lt;aside&amp;gt;/,/^&amp;lt;\/aside&amp;gt;/d&amp;#39;&lt;/span&gt; index.html
+&lt;h3 id=&#34;full-stack-web-developing&#34;&gt;Full-stack Web Developing&lt;/h3&gt;
 
-&lt;span style=&#34;color:#75715e&#34;&gt;# delete lines between &amp;lt;aside&amp;gt; and &amp;lt;/aside&amp;gt; [linux version]&lt;/span&gt;
-sed -i &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;/^ *&amp;lt;aside&amp;gt;/,/^&amp;lt;\/aside&amp;gt;/d&amp;#39;&lt;/span&gt; index.html
-
-&lt;span style=&#34;color:#75715e&#34;&gt;# delete lines between +++ and +++ [Mac version]&lt;/span&gt;
-sed -i &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;/^+++/,/^+++/d&amp;#39;&lt;/span&gt; cv_java.md
-
-&lt;span style=&#34;color:#75715e&#34;&gt;# delete lines between +++ and +++ [linux version]&lt;/span&gt;
-sed -i &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;/^+++/,/^+++/d&amp;#39;&lt;/span&gt; cv_java.md&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h2 id=&#34;4-convert-html-to-docx-pdf-with-pandoc&#34;&gt;4. convert HTML to docx/pdf with pandoc&lt;/h2&gt;
-
-&lt;p&gt;I choose pandoc to do this work. It is open-source and powerful. By now I feel good.
-Most importantly it provides a official docker image to make thing better.
-Here is how to use it:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;mkdir pandoc_work
-cd pandoc_work &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; mkdir data
-docker run --volume &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;`pwd`:/data&amp;#34;&lt;/span&gt; --user &lt;span style=&#34;color:#e6db74&#34;&gt;`&lt;/span&gt;id -u&lt;span style=&#34;color:#e6db74&#34;&gt;`&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;`&lt;/span&gt;id -g&lt;span style=&#34;color:#e6db74&#34;&gt;`&lt;/span&gt; pandoc/latex:2.6 -t docx cv.html &amp;gt; cv.docx&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h2 id=&#34;tips-and-shell-script&#34;&gt;tips and shell script&lt;/h2&gt;
+&lt;p&gt;Solid knowledge of a large variety of languages and platforms gained through 10+ years of hands on working experience:
+&lt;div class=&#34;horizon150&#34;&gt;&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;&lt;p&gt;do not append a space at end of any line, it will produce a space line in docx file.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;cp ../hugo/public/cv.html ./
-&lt;span style=&#34;color:#75715e&#34;&gt;# delete lines between &amp;lt;aside&amp;gt; and &amp;lt;/aside&amp;gt;&lt;/span&gt;
-sed -i &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;/^ *&amp;lt;aside&amp;gt;/,/^&amp;lt;\/aside&amp;gt;/d&amp;#39;&lt;/span&gt; cv.html
-&lt;span style=&#34;color:#75715e&#34;&gt;# convert to docx files&lt;/span&gt;
-docker run --volume &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;`pwd`:/data&amp;#34;&lt;/span&gt; --user &lt;span style=&#34;color:#e6db74&#34;&gt;`&lt;/span&gt;id -u&lt;span style=&#34;color:#e6db74&#34;&gt;`&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;`&lt;/span&gt;id -g&lt;span style=&#34;color:#e6db74&#34;&gt;`&lt;/span&gt; pandoc/latex:2.6 -t docx cv.html &amp;gt; cv.docx&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;C#&lt;/li&gt;
+&lt;li&gt;Java&lt;/li&gt;
+&lt;li&gt;Go&lt;/li&gt;
+&lt;li&gt;JavaScript&lt;/li&gt;
+&lt;li&gt;HTML&lt;/li&gt;
+&lt;li&gt;CSS&lt;/li&gt;
+&lt;li&gt;SQL&lt;/li&gt;
+&lt;li&gt;NoSQL&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/div&gt;
+&lt;div class=&#34;clear&#34;&gt;&lt;/div&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;experiences&#34;&gt;Experiences&lt;/h3&gt;
+
+&lt;p&gt;Best experiences come from failure. I participated in kinds of projects. Some of them were so painful. We had to stay up all night till success. Even today I still occasionally think about the previous coding problems. Fortunately I got the following valuable experience:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;allow business code redundancy. We made lots of “common” business logic at beginning, and had to take them apart later&lt;/li&gt;
+&lt;li&gt;do not covet new technologies. Long time ago I even believed silverlight is the future of web application&lt;/li&gt;
+&lt;li&gt;do not try to pursue “advanced features” of coding languages, but use the most commonly and well-known part&lt;/li&gt;
+&lt;li&gt;there is no silver bullet, best solution is always the combination and compromise&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Developers are always in a dynamic environment. That means they always face many traps. I can help my team to keep away from those traps which I had met in dozens of projects before.&lt;/p&gt;
+
+&lt;h3 id=&#34;persistence&#34;&gt;Persistence&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;In 2005 I was chosen to complete a task: Using VC++ &amp;amp;&amp;amp; OpenGL to display a huge container loaded thousands of lubricating oil drums in 3D. The container should be rotated to view from every aspect. Drums should be selected and dragged to a better position with the mouse. It seemed beyond my ability at the beginning: I did not know VC++ and OpenGL at that time. But I accepted the task. VC++ and OpenGl was hard, but it was not the half of it. The most complicating thing was the the container and drums occasionally disappeared or became unusually large or small because there was something wrong in math computing. I had to double check every line of code. After those drums had been floated in my head for 3 months I completed the task successfully.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;In a web development team of 100+ people, I’m the last line of defense. If a bug couldn’t be fixed, then I would take it over. Those bugs include: an autocomplete third-party plugin didn’t work properly on Firefox; Javascript asynchronous calling in multi modules caused geography map occasionally displaying fail. Every bug required me to review  thousands lines of codes to locate where the problem was. It often took me servals days. When the bug was fixed the PM always sent an email to everybody to announce it.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Once I was assigned an other task: Backup MS-SQL2000 database without using sp_attach_db. I googled and found nobody did this before. Then I did some research and found it may be implemented by parsing data of sysobjects table. So I completed it and wrote an article to help more people. It should be helpful because you can google it until today. Recently I added it to my blogs:&lt;a href=&#34;https://boqiao.github.io/posts/sqlsvr_backup_script/&#34;&gt;https://boqiao.github.io/posts/sqlsvr_backup_script/&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;imagination-strong-execution&#34;&gt;Imagination &amp;amp;&amp;amp; Strong execution&lt;/h3&gt;
+
+&lt;h4 id=&#34;automatic-mobs-killer-by-c&#34;&gt;Automatic mobs killer by C#&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;I played World Of Warcraft before. There was a fun time: from the door of one dungeon mobs rushed out without stop. I made a C# program to record and replay mouse clicks to simulate manual clicks. Then my dark knight could automatically kill mobs day and night.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&#34;automatic-arbitrage-robot-by-go&#34;&gt;Automatic arbitrage robot by Go&lt;/h4&gt;
+
+&lt;p&gt;I’m a fan of bitcoin. A few years ago I noticed big price difference between several exchanges such as huobi,  okcoin, and btcc. I made an automatic trade robot named DK to buy low and sell high. I raised funds from my friends and started DK. He worked for us in 7⁄24. Once DK earned money he would send emails to us. We all so loved him because he almost surprised us every week. DK retired about two years later due to much more risks  of the current virtual currency. DK was made with GoLang + Redis + inotify-tools + rsync + ssmtp + cron.&lt;/p&gt;
+
+&lt;p&gt;&lt;center&gt;&lt;p class=&#34;lgray&#34;&gt;WORKING EXPERIENCES&lt;/p&gt;&lt;/center&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;senior-software-engineer&#34;&gt;SENIOR SOFTWARE ENGINEER&lt;/h3&gt;
+
+&lt;p&gt;2016 to 2019&lt;/p&gt;
+
+&lt;p&gt;Tian Jian Jun He Co.,Ltd&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Developing the High Performance &amp;amp;&amp;amp; High Scalability Backend with Golang + Redis&lt;/li&gt;
+&lt;li&gt;Responsibilities including Designing and Programming; technical trouble shooting and problem solving&lt;/li&gt;
+&lt;li&gt;Successfully designed high flexibility and maintainability system using Redis and Golang. To do this, I referred to a project which I took part in several years before. It was made for some top three telecom corp in Japan. While I used golang instead of C and Redis instead of IBM MQ&lt;/li&gt;
+&lt;li&gt;Languages and tools used: GoLang, Redis, CentOS&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;senior-software-engineer-1&#34;&gt;SENIOR SOFTWARE ENGINEER&lt;/h3&gt;
+
+&lt;p&gt;2012 to 2016&lt;/p&gt;
+
+&lt;p&gt;Hoperun Software Co.,Ltd (&lt;a href=&#34;http://www.hoperun.com&#34;&gt;http://www.hoperun.com&lt;/a&gt;)&lt;/p&gt;
+
+&lt;p&gt;Coding on a variety of projects and solutions to meet and exceed client’s briefs. Some of the major projects include:&lt;/p&gt;
+
+&lt;h4 id=&#34;athome-web-site-http-www-athome-co-jp&#34;&gt;AtHome Web Site (&lt;a href=&#34;http://www.athome.co.jp&#34;&gt;http://www.athome.co.jp&lt;/a&gt;)&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Developing in a project team of 10 people in a period of 24 months to complete the PHP scripting for some modules of a dynamic online real estate trading website for a well-known Japanese company&lt;/li&gt;
+&lt;li&gt;Responsibilities including development environment setup; outlining technical specifications, technical trouble shooting and problem solving.&lt;/li&gt;
+&lt;li&gt;Successfully overcome the most stubborn technical challenges for the project, become the project’s go-to person for any solutionless problem.&lt;/li&gt;
+&lt;li&gt;Languages and tools used: PHP, jQuery&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&#34;haidilao-beijing-co-ltd-ordering-system-https-www-haidilao-com&#34;&gt;HaiDiLao Beijing Co.,Ltd Ordering System (&lt;a href=&#34;https://www.haidilao.com&#34;&gt;https://www.haidilao.com&lt;/a&gt;)&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Backend programmer&lt;/li&gt;
+&lt;li&gt;Technical duties including core business logic coding and unit testing.&lt;/li&gt;
+&lt;li&gt;Learned lots of knowledge about designing and implementing a big distributed system with Java&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;Languages and tools used: Spring Mvc, Oracle, Java, MemoryCache&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&#34;area-monitoring-system&#34;&gt;Area Monitoring System&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Senior programmer in a team of 5 people in a period of 12 months to implement geospatial data visualization for the overall web mapping service development project&lt;/li&gt;
+&lt;li&gt;Technical duties including core business logic coding, technical framework setup, solving technical issues and challenge.&lt;/li&gt;
+&lt;li&gt;Successfully become a competent GIS programmer through self-directed learning in response to project demand, and provided on-the-job training and support to team members&lt;/li&gt;
+&lt;li&gt;Languages and tools used: ArcGIS, Oracle, WinForm, C#&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;senior-software-engineer-2&#34;&gt;SENIOR SOFTWARE ENGINEER&lt;/h3&gt;
+
+&lt;p&gt;2005 to 2012&lt;/p&gt;
+
+&lt;p&gt;SYSystem Corporation, Xi’an Branch (&lt;a href=&#34;http://www.sysystem.com.cn&#34;&gt;http://www.sysystem.com.cn&lt;/a&gt;)&lt;/p&gt;
+
+&lt;p&gt;Coding on a variety of projects and solutions to meet and exceed client’s briefs. Some of the major projects include:&lt;/p&gt;
+
+&lt;h4 id=&#34;combustion-optimization-system-for-xi-an-thermal-power-research-institution&#34;&gt;Combustion Optimization System for Xi’an Thermal Power Research Institution&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Backend designing and Java developing&lt;/li&gt;
+&lt;li&gt;Collaborate with clients and the project team to define project needs. &lt;/li&gt;
+&lt;li&gt;Languages and tools used: Silverlight, C#, Axis2, Tomcat6, hibernate3, SQL Server, Java&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&#34;encode-animation-production-manage-system&#34;&gt;Encode Animation Production Manage System&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Full stack development &lt;/li&gt;
+&lt;li&gt;Provide successful solution design by adopting jQuery + ASP.NET MVC2 + C#.&lt;/li&gt;
+&lt;li&gt;Provide project progress analysis. &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&#34;scon-logistics-management-system&#34;&gt;SCON Logistics Management System&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Responsible for setting up technical proposal and giving the final solutions when the team faced technical challenges. &lt;/li&gt;
+&lt;li&gt;Tracking the progress of the project development. &lt;/li&gt;
+&lt;li&gt;Languages, tools and platforms used for this project: Pro*COBOL, VI, Ultra Edit, Oracle Solaris 10, Visual SourceSafe, JIRA, MS Project 2003. &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&#34;npids2100-intrusion-detection-system&#34;&gt;NPIDS2100 Intrusion Detection System&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;SQL Server Network Backup Module developing.&lt;/li&gt;
+&lt;li&gt;Solving technical challenges.&lt;/li&gt;
+&lt;li&gt;Languages, tools and platforms used for this project: Windows 2000, SQL Server 2000, VS.NET 2003, C#.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;software-engineer&#34;&gt;SOFTWARE ENGINEER&lt;/h3&gt;
+
+&lt;p&gt;2007 to 2008&lt;/p&gt;
+
+&lt;p&gt;SYSystem Corporation, Osaka, Japan&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;One year overseas experience to work on the project for implementing a system for providing remote monitoring and control to the lighting and security system of the city’s subways in Osaka, Japan.&lt;/li&gt;
+&lt;li&gt;Responsible for developing and solving technical problems with Japanese team.&lt;/li&gt;
+&lt;li&gt;Overcome language and culture challenge to deliver satisfactory service to clients.&lt;/li&gt;
+&lt;li&gt;Languages, tools and platforms used for this project: Oracle Solaris10, Ultra Edit, Pro*COBOL, Visual Source Safe, JIRA, MS Project 2003.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;software-engineer-1&#34;&gt;SOFTWARE ENGINEER&lt;/h3&gt;
+
+&lt;p&gt;2003 to 2004&lt;/p&gt;
+
+&lt;p&gt;Bai Lian Corporation&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Building and maintaining Electricity Management System for electricity companies in Shanxi Province of China&lt;/li&gt;
+&lt;li&gt;Electricity Management System &lt;/li&gt;
+&lt;li&gt;Responsible for the electricity fee calculating module.&lt;/li&gt;
+&lt;li&gt;Successfully improve the executing performance of SQL Server query scripts based on 10 million records.&lt;/li&gt;
+&lt;li&gt;Languages and tools used: SQL Server 2000, ASP.net, C#.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;center&gt;&lt;p class=&#34;lgray&#34;&gt;ACADEMIC BACKGROUND&lt;/p&gt;&lt;/center&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Qualification: Bachelor of Science&lt;/li&gt;
+&lt;li&gt;Major Geographic Information System and Cartography&lt;/li&gt;
+&lt;li&gt;University: Northwestern University (China)&lt;/li&gt;
+&lt;li&gt;Language Skills: College English Test Band 4&lt;/li&gt;
 &lt;/ul&gt;
 </description>
      </item>
    
      <item>
+       <title>java cv</title>
+       <link>http://localost:1313/posts/cv_java/</link>
+       <pubDate>Tue, 17 Dec 2019 11:11:42 +1300</pubDate>
+       
+       <guid>http://localost:1313/posts/cv_java/</guid>
+       <description>
+
+&lt;style&gt;
+@media print {
+    .pagebreak {
+        clear: both;
+        page-break-after: always;
+    }
+}
+
+.lgray {
+  background-color:lightgray;
+}
+.clear {
+  clear:both;
+}
+
+.horizon150 ul li {
+float:left;
+width:150px;
+}
+&lt;/style&gt;
+
+&lt;p&gt;&lt;center&gt;&lt;p class=&#34;lgray&#34;&gt;Curriculum Vitae&lt;/p&gt;&lt;/center&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;center&gt;&lt;/p&gt;
+
+&lt;h1 id=&#34;john&#34;&gt;John&lt;/h1&gt;
+
+&lt;p&gt;&lt;/center&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;center&gt;064-225296908&lt;/center&gt;
+&lt;center&gt;johnqiaobo@gmail.com&lt;/center&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;div class=&#34;pagebreak&#34;&gt;&lt;/div&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;center&gt;&lt;p class=&#34;lgray&#34;&gt;PROFILE&lt;/p&gt;&lt;/center&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;a-talented-programmer&#34;&gt;A talented programmer&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Very strong confidence in resolving problems&lt;/li&gt;
+&lt;li&gt;Extreme enthusiasm about implementing ideas with programming&lt;/li&gt;
+&lt;li&gt;Concentration on individual task, even for weeks&lt;/li&gt;
+&lt;li&gt;Super self-taught ability to acquire new skills in a short time&lt;/li&gt;
+&lt;li&gt;A Database pro&lt;/li&gt;
+&lt;li&gt;An outdoor lover, and a basketball /football /fishing fan&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;center&gt;&lt;p class=&#34;lgray&#34;&gt;STRENGTHS&lt;/p&gt;&lt;/center&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;full-stack-web-developing&#34;&gt;Full-stack Web Developing&lt;/h3&gt;
+
+&lt;p&gt;Solid knowledge of a large variety of languages and platforms gained through 10+ years of hands on working experience:
+&lt;div class=&#34;horizon150&#34;&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Java&lt;/li&gt;
+&lt;li&gt;C#&lt;/li&gt;
+&lt;li&gt;Go&lt;/li&gt;
+&lt;li&gt;JavaScript&lt;/li&gt;
+&lt;li&gt;HTML&lt;/li&gt;
+&lt;li&gt;CSS&lt;/li&gt;
+&lt;li&gt;SQL&lt;/li&gt;
+&lt;li&gt;NoSQL&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/div&gt;
+&lt;div class=&#34;clear&#34;&gt;&lt;/div&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;experiences&#34;&gt;Experiences&lt;/h3&gt;
+
+&lt;p&gt;Best experiences come from failure. I participated in kinds of projects. Some of them were so painful. We had to stay up all night till success. Even today I still occasionally think about the previous coding problems. Fortunately I got the following valuable experience:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;allow business code redundancy. We made lots of “common” business logic at beginning, and had to take them apart later&lt;/li&gt;
+&lt;li&gt;do not covet new technologies. Long time ago I even believed silverlight is the future of web application&lt;/li&gt;
+&lt;li&gt;do not try to pursue “advanced features” of coding languages, but use the most commonly and well-known part&lt;/li&gt;
+&lt;li&gt;there is no silver bullet, best solution is always the combination and compromise&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Developers are always in a dynamic environment. That means they always face many traps. I can help my team to keep away from those traps which I had met in dozens of projects before.&lt;/p&gt;
+
+&lt;h3 id=&#34;persistence&#34;&gt;Persistence&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;In 2005 I was chosen to complete a task: Using VC++ &amp;amp;&amp;amp; OpenGL to display a huge container loaded thousands of lubricating oil drums in 3D. The container should be rotated to view from every aspect. Drums should be selected and dragged to a better position with the mouse. It seemed beyond my ability at the beginning: I did not know VC++ and OpenGL at that time. But I accepted the task. VC++ and OpenGl was hard, but it was not the half of it. The most complicating thing was the the container and drums occasionally disappeared or became unusually large or small because there was something wrong in math computing. I had to double check every line of code. After those drums had been floated in my head for 3 months I completed the task successfully.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;In a web development team of 100+ people, I’m the last line of defense. If a bug couldn’t be fixed, then I would take it over. Those bugs include: an autocomplete third-party plugin didn’t work properly on Firefox; Javascript asynchronous calling in multi modules caused geography map occasionally displaying fail. Every bug required me to review  thousands lines of codes to locate where the problem was. It often took me servals days. When the bug was fixed the PM always sent an email to everybody to announce it.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Once I was assigned an other task: Backup MS-SQL2000 database without using sp_attach_db. I googled and found nobody did this before. Then I did some research and found it may be implemented by parsing data of sysobjects table. So I completed it and wrote an article to help more people. It should be helpful because you can google it until today. Recently I added it to my blogs:&lt;a href=&#34;https://boqiao.github.io/posts/sqlsvr_backup_script/&#34;&gt;https://boqiao.github.io/posts/sqlsvr_backup_script/&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;imagination-strong-execution&#34;&gt;Imagination &amp;amp;&amp;amp; Strong execution&lt;/h3&gt;
+
+&lt;h4 id=&#34;automatic-mobs-killer-by-c&#34;&gt;Automatic mobs killer by C#&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;I played World Of Warcraft before. There was a fun time: from the door of one dungeon mobs rushed out without stop. I made a C# program to record and replay mouse clicks to simulate manual clicks. Then my dark knight could automatically kill mobs day and night.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&#34;automatic-arbitrage-robot-by-go&#34;&gt;Automatic arbitrage robot by Go&lt;/h4&gt;
+
+&lt;p&gt;I’m a fan of bitcoin. A few years ago I noticed big price difference between several exchanges such as huobi,  okcoin, and btcc. I made an automatic trade robot named DK to buy low and sell high. I raised funds from my friends and started DK. He worked for us in 7⁄24. Once DK earned money he would send emails to us. We all so loved him because he almost surprised us every week. DK retired about two years later due to much more risks  of the current virtual currency. DK was made with GoLang + Redis + inotify-tools + rsync + ssmtp + cron.&lt;/p&gt;
+
+&lt;p&gt;&lt;center&gt;&lt;p class=&#34;lgray&#34;&gt;WORKING EXPERIENCES&lt;/p&gt;&lt;/center&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;senior-software-engineer&#34;&gt;SENIOR SOFTWARE ENGINEER&lt;/h3&gt;
+
+&lt;p&gt;2016 to 2019&lt;/p&gt;
+
+&lt;p&gt;Tian Jian Jun He Co.,Ltd&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Developing the High Performance &amp;amp;&amp;amp; High Scalability Backend with Golang + Redis&lt;/li&gt;
+&lt;li&gt;Responsibilities including Designing and Programming; technical trouble shooting and problem solving&lt;/li&gt;
+&lt;li&gt;Successfully designed high flexibility and maintainability system using Redis and Golang. To do this, I referred to a project which I took part in several years before. It was made for some top three telecom corp in Japan. While I used golang instead of C and Redis instead of IBM MQ&lt;/li&gt;
+&lt;li&gt;Languages and tools used: GoLang, Redis, CentOS&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;senior-software-engineer-1&#34;&gt;SENIOR SOFTWARE ENGINEER&lt;/h3&gt;
+
+&lt;p&gt;2012 to 2016&lt;/p&gt;
+
+&lt;p&gt;Hoperun Software Co.,Ltd (&lt;a href=&#34;http://www.hoperun.com&#34;&gt;http://www.hoperun.com&lt;/a&gt;)&lt;/p&gt;
+
+&lt;p&gt;Coding on a variety of projects and solutions to meet and exceed client’s briefs. Some of the major projects include:&lt;/p&gt;
+
+&lt;h4 id=&#34;athome-web-site-http-www-athome-co-jp&#34;&gt;AtHome Web Site (&lt;a href=&#34;http://www.athome.co.jp&#34;&gt;http://www.athome.co.jp&lt;/a&gt;)&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Developing in a project team of 10 people in a period of 24 months to complete the PHP scripting for some modules of a dynamic online real estate trading website for a well-known Japanese company&lt;/li&gt;
+&lt;li&gt;Responsibilities including development environment setup; outlining technical specifications, technical trouble shooting and problem solving.&lt;/li&gt;
+&lt;li&gt;Successfully overcome the most stubborn technical challenges for the project, become the project’s go-to person for any solutionless problem.&lt;/li&gt;
+&lt;li&gt;Languages and tools used: PHP, jQuery&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&#34;haidilao-beijing-co-ltd-ordering-system-https-www-haidilao-com&#34;&gt;HaiDiLao Beijing Co.,Ltd Ordering System (&lt;a href=&#34;https://www.haidilao.com&#34;&gt;https://www.haidilao.com&lt;/a&gt;)&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Backend programmer&lt;/li&gt;
+&lt;li&gt;Technical duties including core business logic coding and unit testing.&lt;/li&gt;
+&lt;li&gt;Learned lots of knowledge about designing and implementing a big distributed system with Java&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;Languages and tools used: Spring Mvc, Oracle, Java, MemoryCache&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&#34;area-monitoring-system&#34;&gt;Area Monitoring System&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Senior programmer in a team of 5 people in a period of 12 months to implement geospatial data visualization for the overall web mapping service development project&lt;/li&gt;
+&lt;li&gt;Technical duties including core business logic coding, technical framework setup, solving technical issues and challenge.&lt;/li&gt;
+&lt;li&gt;Successfully become a competent GIS programmer through self-directed learning in response to project demand, and provided on-the-job training and support to team members&lt;/li&gt;
+&lt;li&gt;Languages and tools used: ArcGIS, Oracle, WinForm, C#&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;senior-software-engineer-2&#34;&gt;SENIOR SOFTWARE ENGINEER&lt;/h3&gt;
+
+&lt;p&gt;2005 to 2012&lt;/p&gt;
+
+&lt;p&gt;SYSystem Corporation, Xi’an Branch (&lt;a href=&#34;http://www.sysystem.com.cn&#34;&gt;http://www.sysystem.com.cn&lt;/a&gt;)&lt;/p&gt;
+
+&lt;p&gt;Coding on a variety of projects and solutions to meet and exceed client’s briefs. Some of the major projects include:&lt;/p&gt;
+
+&lt;h4 id=&#34;combustion-optimization-system-for-xi-an-thermal-power-research-institution&#34;&gt;Combustion Optimization System for Xi’an Thermal Power Research Institution&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Backend designing and Java developing&lt;/li&gt;
+&lt;li&gt;Collaborate with clients and the project team to define project needs. &lt;/li&gt;
+&lt;li&gt;Languages and tools used: Silverlight, C#, Axis2, Tomcat6, hibernate3, SQL Server, Java&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&#34;yum-ordering-manage-system&#34;&gt;Yum Ordering Manage System&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Backend development using Struts 2, Java&lt;/li&gt;
+&lt;li&gt;Solving technical challenges.&lt;/li&gt;
+&lt;li&gt;Provide project progress analysis. &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&#34;scon-logistics-management-system&#34;&gt;SCON Logistics Management System&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Responsible for setting up technical proposal and giving the final solutions when the team faced technical challenges. &lt;/li&gt;
+&lt;li&gt;Tracking the progress of the project development. &lt;/li&gt;
+&lt;li&gt;Languages, tools and platforms used for this project: Pro*COBOL, VI, Ultra Edit, Oracle Solaris 10, Visual SourceSafe, JIRA, MS Project 2003. &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&#34;npids2100-intrusion-detection-system&#34;&gt;NPIDS2100 Intrusion Detection System&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;SQL Server Network Backup Module developing.&lt;/li&gt;
+&lt;li&gt;Solving technical challenges.&lt;/li&gt;
+&lt;li&gt;Languages, tools and platforms used for this project: Windows 2000, SQL Server 2000, VS.NET 2003, C#.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;software-engineer&#34;&gt;SOFTWARE ENGINEER&lt;/h3&gt;
+
+&lt;p&gt;2007 to 2008&lt;/p&gt;
+
+&lt;p&gt;SYSystem Corporation, Osaka, Japan&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;One year overseas experience to work on the project for implementing a system for providing remote monitoring and control to the lighting and security system of the city’s subways in Osaka, Japan.&lt;/li&gt;
+&lt;li&gt;Responsible for developing and solving technical problems with Japanese team.&lt;/li&gt;
+&lt;li&gt;Overcome language and culture challenge to deliver satisfactory service to clients.&lt;/li&gt;
+&lt;li&gt;Languages, tools and platforms used for this project: Oracle Solaris10, Ultra Edit, Pro*COBOL, Visual Source Safe, JIRA, MS Project 2003.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;software-engineer-1&#34;&gt;SOFTWARE ENGINEER&lt;/h3&gt;
+
+&lt;p&gt;2003 to 2004&lt;/p&gt;
+
+&lt;p&gt;Bai Lian Corporation&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Building and maintaining Electricity Management System for electricity companies in Shanxi Province of China&lt;/li&gt;
+&lt;li&gt;Electricity Management System &lt;/li&gt;
+&lt;li&gt;Responsible for the electricity fee calculating module.&lt;/li&gt;
+&lt;li&gt;Successfully improve the executing performance of SQL Server query scripts based on 10 million records.&lt;/li&gt;
+&lt;li&gt;Languages and tools used: SQL Server 2000, ASP.net, C#.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;center&gt;&lt;p class=&#34;lgray&#34;&gt;ACADEMIC BACKGROUND&lt;/p&gt;&lt;/center&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Qualification: Bachelor of Science&lt;/li&gt;
+&lt;li&gt;Major Geographic Information System and Cartography&lt;/li&gt;
+&lt;li&gt;University: Northwestern University (China)&lt;/li&gt;
+&lt;li&gt;Language Skills: College English Test Band 4&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+     </item>
+   
+     <item>
+       <title>hugo quick guide</title>
+       <link>http://localost:1313/posts/hugo-quick-guide/</link>
+       <pubDate>Tue, 26 Nov 2019 14:11:42 +1300</pubDate>
+       
+       <guid>http://localost:1313/posts/hugo-quick-guide/</guid>
+       <description>
+
+&lt;p&gt;A quick guide to learn hugo more for experienced developer&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;/
++-- archetypes
++-- content
+|   +-- post 
+|       +-- first-blog.md
+|       +-- second-blog.md
++-- data
+|   +--recentworks
+|      +-- work1.toml
+|      +-- work2.toml 
+|   +-- service.toml
++-- i18n
++-- layouts
+|   +-- _default
+|       +-- list.html
+|       +-- single.html
+|   +-- about
+|       +-- about1.html 
+|       +-- about2.html &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;/layouts/_default/list.html will render /post/index.html(auto generated)
+Page /post/index.html will be shown&lt;/p&gt;
+
+&lt;p&gt;You can add this in /content/post/_index.html to change this default action:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-toml&#34; data-lang=&#34;toml&#34;&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;+++&lt;/span&gt;
+&lt;span style=&#34;color:#a6e22e&#34;&gt;layout&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;other-layout&amp;#34;&lt;/span&gt;
+&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;+++&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;yes, list.html is special file. So does single.html.&lt;/p&gt;
+
+&lt;p&gt;/layouts/_default/page.html will render /post/*.html
+Page /post/first-blog.html and other single blog will be shown.&lt;/p&gt;
+
+&lt;p&gt;fix question &amp;ldquo;You should create a template file which matches Hugo Layouts Lookup Rules&amp;rdquo;
+In my case, &amp;lsquo;theme = &amp;ldquo;xxx&amp;rdquo;&amp;rsquo; be put wrong place.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-toml&#34; data-lang=&#34;toml&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;baseURL&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;http://localhost:1313/&amp;#34;&lt;/span&gt;
+&lt;span style=&#34;color:#a6e22e&#34;&gt;languageCode&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;en_us&amp;#34;&lt;/span&gt;
+&lt;span style=&#34;color:#a6e22e&#34;&gt;paginate&lt;/span&gt; = &lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;
+
+[&lt;span style=&#34;color:#a6e22e&#34;&gt;languages&lt;/span&gt;]
+  [&lt;span style=&#34;color:#a6e22e&#34;&gt;languages&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;en&lt;/span&gt;]
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;languageName&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;english&amp;#34;&lt;/span&gt;
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;title&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;my blog&amp;#34;&lt;/span&gt;
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;weight&lt;/span&gt; = &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;contentDir&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;content/english&amp;#34;&lt;/span&gt;
+  [&lt;span style=&#34;color:#a6e22e&#34;&gt;languages&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;fr&lt;/span&gt;]
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;languageName&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;french&amp;#34;&lt;/span&gt;
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;title&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Mon blogue&amp;#34;&lt;/span&gt;
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;weight&lt;/span&gt; = &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;contentDir&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;content/french&amp;#34;&lt;/span&gt;
+
+&lt;span style=&#34;color:#a6e22e&#34;&gt;theme&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;xxx&amp;#34;&lt;/span&gt;
+
+[&lt;span style=&#34;color:#a6e22e&#34;&gt;params&lt;/span&gt;]
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;name&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;xxx&amp;#34;&lt;/span&gt;
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;description&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;xxx&amp;#34;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;I change theme = &amp;ldquo;xxx&amp;rdquo; to the starting position, then everything is ok.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-toml&#34; data-lang=&#34;toml&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;baseURL&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;http://localhost:1313/&amp;#34;&lt;/span&gt;
+&lt;span style=&#34;color:#a6e22e&#34;&gt;languageCode&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;en_us&amp;#34;&lt;/span&gt;
+&lt;span style=&#34;color:#a6e22e&#34;&gt;theme&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;xxx&amp;#34;&lt;/span&gt;
+[&lt;span style=&#34;color:#a6e22e&#34;&gt;languages&lt;/span&gt;]
+  [&lt;span style=&#34;color:#a6e22e&#34;&gt;languages&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;en&lt;/span&gt;]
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;languageName&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;english&amp;#34;&lt;/span&gt;
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;title&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;my blog&amp;#34;&lt;/span&gt;
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;weight&lt;/span&gt; = &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;contentDir&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;content/english&amp;#34;&lt;/span&gt;
+  [&lt;span style=&#34;color:#a6e22e&#34;&gt;languages&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;fr&lt;/span&gt;]
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;languageName&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;french&amp;#34;&lt;/span&gt;
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;title&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Mon blogue&amp;#34;&lt;/span&gt;
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;weight&lt;/span&gt; = &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;contentDir&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;content/french&amp;#34;&lt;/span&gt;
+
+[&lt;span style=&#34;color:#a6e22e&#34;&gt;params&lt;/span&gt;]
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;name&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;xxx&amp;#34;&lt;/span&gt;
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;description&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;xxx&amp;#34;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3 id=&#34;data-directory-i18n&#34;&gt;Data directory i18n&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;data
++-- services
+    +-- cn
+        +-- service.toml
+    +-- en 
+        +-- service.toml&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;      {{ with index .Site.Data.services .Site.Language.Lang }}
+      {{ range .service.service }}
+       ...
+      {{ end }}
+      {{ end }}&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+     </item>
+   
+     <item>
        <title>store procedure for generating create-scripts of sql-server2000 object</title>
-       <link>https://boqiao.github.io/posts/sqlsvr_backup_script/</link>
+       <link>http://localost:1313/posts/sqlsvr_backup_script/</link>
        <pubDate>Sun, 24 Nov 2019 11:13:42 +1300</pubDate>
        
-       <guid>https://boqiao.github.io/posts/sqlsvr_backup_script/</guid>
+       <guid>http://localost:1313/posts/sqlsvr_backup_script/</guid>
        <description>&lt;p&gt;Basiclly it is implemented by parsing data of sysobjects table.
 I made it long long ago when sp_attach_db didn&amp;rsquo;t work well(absolue path problem or other things I can&amp;rsquo;t remember very clearly).
 It havn&amp;rsquo;t be test on other sql server versions. Please be careful if you have to use this.
@@ -578,10 +1107,10 @@ WHILE &lt;span style=&#34;color:#f92672&#34;&gt;@@&lt;/span&gt;FETCH_STATUS &lt;
    
      <item>
        <title>docker operator log</title>
-       <link>https://boqiao.github.io/posts/docker/</link>
+       <link>http://localost:1313/posts/docker/</link>
        <pubDate>Sat, 23 Nov 2019 23:00:42 +1300</pubDate>
        
-       <guid>https://boqiao.github.io/posts/docker/</guid>
+       <guid>http://localost:1313/posts/docker/</guid>
        <description>
 
 &lt;h3 id=&#34;develop-c-on-mac-docker-mono&#34;&gt;develop c# on mac/docker/mono&lt;/h3&gt;
@@ -602,11 +1131,16 @@ docker run -it --name mei-web --network my-net --publish &lt;span style=&#34;col
 &lt;p&gt;after that, you can&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;docker start mei-web
 docker attach mei-web
-nginx&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3 id=&#34;convert-markdown-to-docx&#34;&gt;convert markdown to docx&lt;/h3&gt;
-
-&lt;p&gt;docker run &amp;ndash;volume &amp;ldquo;&lt;code&gt;pwd&lt;/code&gt;:/data&amp;rdquo; &amp;ndash;user &lt;code&gt;id -u&lt;/code&gt;:&lt;code&gt;id -g&lt;/code&gt; pandoc/latex:2.6 -t docx readme.md &amp;gt; readme.docx&lt;/p&gt;
-</description>
+nginx&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+     </item>
+   
+     <item>
+       <title></title>
+       <link>http://localost:1313/posts/it-tech-our-children-should-learn/</link>
+       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+       
+       <guid>http://localost:1313/posts/it-tech-our-children-should-learn/</guid>
+       <description></description>
      </item>
    
  </channel>

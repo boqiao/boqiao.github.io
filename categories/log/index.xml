@@ -13,6 +13,71 @@
    
    
      <item>
+       <title>create CV with markdown and pandoc</title>
+       <link>https://boqiao.github.io/posts/cv-with-markdown-docker-pandoc/</link>
+       <pubDate>Tue, 17 Dec 2019 11:11:42 +1300</pubDate>
+       
+       <guid>https://boqiao.github.io/posts/cv-with-markdown-docker-pandoc/</guid>
+       <description>
+
+&lt;p&gt;I am not good at MS-Word so basiclly I try to avoid every possibility to use it.
+Sometimes it is unavoidable such as writing your CV. As a programmer I have reponsibility to make my &amp;lsquo;bytes&amp;rsquo; more cool than other mortals&amp;rsquo;s.&lt;/p&gt;
+
+&lt;p&gt;Recently I find a way to &amp;lsquo;program&amp;rsquo; my CV and get lots of fun. From now my CV could be wirtten totally with
+plain text. I could edit them with any edit software on any platform. Meanwhile it is easy to be converted to any format.&lt;/p&gt;
+
+&lt;h2 id=&#34;1-writing-a-cv-in-markdown-format-with-vim-notepad-sublime&#34;&gt;1. writing a CV in markdown format with Vim/Notepad/Sublime&lt;/h2&gt;
+
+&lt;p&gt;Markdown is very good format. It is easy to learn and easy to read.
+Because markfown file will be converted to HTML first. So I could add some html code in it such as &amp;lt;center&amp;gt;&amp;hellip;&amp;lt;/center&amp;gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;2-view-it-in-hugo-and-publish-it-as-html&#34;&gt;2. view it in HUGO and publish it as HTML&lt;/h2&gt;
+
+&lt;p&gt;Here I use HUGO as my markdown translator which can convert markdown file to html file to view.
+HUGO is a static website generator. It is based on GoLang that means it could be installed in clean way.
+HUGO has two features which greatly increase my efficiency:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;hot-develop: you can view the result immediately while you are editing the CV file. It dose not need switch from editor to browser and press ctrl+v any more.&lt;/li&gt;
+&lt;li&gt;modularize: I have several CVs for different recuiters. I had worked on pretty much projects. It will be very long and boring if I list thme all. So I pick up some projects and reorganize them to a CV. Moduarizing could do that very well. I just include different partial parts in CV file.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;3-modify-html-markdown-content-with-sed&#34;&gt;3. modify HTML/Markdown content with sed&lt;/h2&gt;
+
+&lt;p&gt;I usually delete some content before converting stage.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# delete lines between &amp;lt;aside&amp;gt; and &amp;lt;/aside&amp;gt; [Mac version]&lt;/span&gt;
+sed -i &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;/^ *&amp;lt;aside&amp;gt;/,/^&amp;lt;\/aside&amp;gt;/d&amp;#39;&lt;/span&gt; index.html
+
+&lt;span style=&#34;color:#75715e&#34;&gt;# delete lines between &amp;lt;aside&amp;gt; and &amp;lt;/aside&amp;gt; [linux version]&lt;/span&gt;
+sed -i &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;/^ *&amp;lt;aside&amp;gt;/,/^&amp;lt;\/aside&amp;gt;/d&amp;#39;&lt;/span&gt; index.html
+
+&lt;span style=&#34;color:#75715e&#34;&gt;# delete lines between +++ and +++ [Mac version]&lt;/span&gt;
+sed -i &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;/^+++/,/^+++/d&amp;#39;&lt;/span&gt; cv_java.md
+
+&lt;span style=&#34;color:#75715e&#34;&gt;# delete lines between +++ and +++ [linux version]&lt;/span&gt;
+sed -i &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;/^+++/,/^+++/d&amp;#39;&lt;/span&gt; cv_java.md&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2 id=&#34;4-convert-html-to-docx-pdf-with-pandoc&#34;&gt;4. convert HTML to docx/pdf with pandoc&lt;/h2&gt;
+
+&lt;p&gt;I choose pandoc to do this work. It is open-source and powerful. By now I feel good.
+Most importantly it provides a official docker image to make thing better.
+Here is how to use it:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;mkdir pandoc_work
+cd pandoc_work &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; mkdir data
+docker run --volume &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;`pwd`:/data&amp;#34;&lt;/span&gt; --user &lt;span style=&#34;color:#e6db74&#34;&gt;`&lt;/span&gt;id -u&lt;span style=&#34;color:#e6db74&#34;&gt;`&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;`&lt;/span&gt;id -g&lt;span style=&#34;color:#e6db74&#34;&gt;`&lt;/span&gt; pandoc/latex:2.6 -t docx cv.html &amp;gt; cv.docx&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2 id=&#34;tips-and-shell-script&#34;&gt;tips and shell script&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;do not append a space at end of any line, it will produce a space line in docx file.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;cp ../hugo/public/cv.html ./
+&lt;span style=&#34;color:#75715e&#34;&gt;# delete lines between &amp;lt;aside&amp;gt; and &amp;lt;/aside&amp;gt;&lt;/span&gt;
+sed -i &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;/^ *&amp;lt;aside&amp;gt;/,/^&amp;lt;\/aside&amp;gt;/d&amp;#39;&lt;/span&gt; cv.html
+&lt;span style=&#34;color:#75715e&#34;&gt;# convert to docx files&lt;/span&gt;
+docker run --volume &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;`pwd`:/data&amp;#34;&lt;/span&gt; --user &lt;span style=&#34;color:#e6db74&#34;&gt;`&lt;/span&gt;id -u&lt;span style=&#34;color:#e6db74&#34;&gt;`&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;`&lt;/span&gt;id -g&lt;span style=&#34;color:#e6db74&#34;&gt;`&lt;/span&gt; pandoc/latex:2.6 -t docx cv.html &amp;gt; cv.docx&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+     </item>
+   
+     <item>
        <title>store procedure for generating create-scripts of sql-server2000 object</title>
        <link>https://boqiao.github.io/posts/sqlsvr_backup_script/</link>
        <pubDate>Sun, 24 Nov 2019 11:13:42 +1300</pubDate>
@@ -537,7 +602,11 @@ docker run -it --name mei-web --network my-net --publish &lt;span style=&#34;col
 &lt;p&gt;after that, you can&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;docker start mei-web
 docker attach mei-web
-nginx&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+nginx&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3 id=&#34;convert-markdown-to-docx&#34;&gt;convert markdown to docx&lt;/h3&gt;
+
+&lt;p&gt;docker run &amp;ndash;volume &amp;ldquo;&lt;code&gt;pwd&lt;/code&gt;:/data&amp;rdquo; &amp;ndash;user &lt;code&gt;id -u&lt;/code&gt;:&lt;code&gt;id -g&lt;/code&gt; pandoc/latex:2.6 -t docx readme.md &amp;gt; readme.docx&lt;/p&gt;
+</description>
      </item>
    
  </channel>

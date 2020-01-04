@@ -1,0 +1,181 @@
+<!doctype html>
+
+<html lang="en-us">
+
+<head>
+  <title>John</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="A man like fishing" />
+  <meta name="author" content="John" /><meta name="generator" content="Hugo 0.59.1" />
+    
+
+  <meta property="og:title" content="John" />
+<meta property="og:description" content="A man like fishing" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://boqiao.github.io/" />
+
+<meta property="og:updated_time" content="2019-12-17T11:11:42+13:00" />
+
+  <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="John"/>
+<meta name="twitter:description" content="A man like fishing"/>
+
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css" />
+  <script src="https://kit.fontawesome.com/b76b73e8e8.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Slab|Ruda" />
+  <link rel="stylesheet" type="text/css" href="https://boqiao.github.io/css/styles.css" /></head>
+
+<body>
+  <div id="container">
+    <header>
+      <h1>
+                <a href="https://boqiao.github.io/">John</a>
+            </h1>
+
+      <ul id="social-media">
+        
+        
+         
+        <li><a href="https://www.linkedin.com/in/qiao-bo"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+         
+        <li><a href="https://github.com/boqiao"><i class="fab fa-github fa-lg" aria-hidden="true"></i></a></li>
+            
+      </ul>
+      
+      <p><em>A programmer in new zealand</em></p>
+      
+    </header>
+
+    
+<nav>
+    <ul>
+        
+    </ul>
+</nav>
+
+    <main>
+
+
+
+<article>
+
+    <h1>create CV with markdown and pandoc</h1>
+
+    
+        <aside>
+    <ul>
+        <li>
+            <time class="post-date" datetime="2019-12-17T11:11:42&#43;13:00">Dec 17, 2019</time>
+        </li>
+        
+        <li>
+            Categories:
+            <em>
+                
+                    
+                    <a href="https://boqiao.github.io/categories/docker-pandoc-markdown-hugo">docker pandoc markdown hugo</a>
+                
+            </em>
+        </li>
+        
+
+        
+
+        <li>3 minutes read</li>
+    </ul>
+</aside>
+
+    
+
+    
+
+<p>I am not good at MS-Word so basiclly I try to avoid every possibility to use it.
+Sometimes it is unavoidable such as writing your CV. As a programmer I have reponsibility to make my &lsquo;bytes&rsquo; more cool than other mortals&rsquo;s.</p>
+
+<p>Recently I find a way to &lsquo;program&rsquo; my CV and get lots of fun. From now my CV could be wirtten totally with
+plain text. I could edit them with any edit software on any platform. Meanwhile it is easy to be converted to any format.</p>
+
+<h2 id="1-writing-a-cv-in-markdown-format-with-vim-notepad-sublime">1. writing a CV in markdown format with Vim/Notepad/Sublime</h2>
+
+<p>Markdown is very good format. It is easy to learn and easy to read.
+Because markfown file will be converted to HTML first. So I could add some html code in it such as &lt;center&gt;&hellip;&lt;/center&gt;</p>
+
+<h2 id="2-view-it-in-hugo-and-publish-it-as-html">2. view it in HUGO and publish it as HTML</h2>
+
+<p>Here I use HUGO as my markdown translator which can convert markdown file to html file to view.
+HUGO is a static website generator. It is based on GoLang that means it could be installed in clean way.
+HUGO has two features which greatly increase my efficiency:</p>
+
+<ul>
+<li>hot-develop: you can view the result immediately while you are editing the CV file. It dose not need switch from editor to browser and press ctrl+v any more.</li>
+<li>modularize: I have several CVs for different recuiters. I had worked on pretty much projects. It will be very long and boring if I list thme all. So I pick up some projects and reorganize them to a CV. Moduarizing could do that very well. I just include different partial parts in CV file.</li>
+</ul>
+
+<h2 id="3-modify-html-markdown-content-with-sed">3. modify HTML/Markdown content with sed</h2>
+
+<p>I usually delete some content before converting stage.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e"># delete lines between &lt;aside&gt; and &lt;/aside&gt; [Mac version]</span>
+sed -i <span style="color:#e6db74">&#39;&#39;</span> <span style="color:#e6db74">&#39;/^ *&lt;aside&gt;/,/^&lt;\/aside&gt;/d&#39;</span> index.html
+
+<span style="color:#75715e"># delete lines between &lt;aside&gt; and &lt;/aside&gt; [linux version]</span>
+sed -i <span style="color:#e6db74">&#39;/^ *&lt;aside&gt;/,/^&lt;\/aside&gt;/d&#39;</span> index.html
+
+<span style="color:#75715e"># delete lines between +++ and +++ [Mac version]</span>
+sed -i <span style="color:#e6db74">&#39;&#39;</span> <span style="color:#e6db74">&#39;/^+++/,/^+++/d&#39;</span> cv_java.md
+
+<span style="color:#75715e"># delete lines between +++ and +++ [linux version]</span>
+sed -i <span style="color:#e6db74">&#39;/^+++/,/^+++/d&#39;</span> cv_java.md</code></pre></div>
+<h2 id="4-convert-html-to-docx-pdf-with-pandoc">4. convert HTML to docx/pdf with pandoc</h2>
+
+<p>I choose pandoc to do this work. It is open-source and powerful. By now I feel good.
+Most importantly it provides a official docker image to make thing better.
+Here is how to use it:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">mkdir pandoc_work
+cd pandoc_work <span style="color:#f92672">&amp;&amp;</span> mkdir data
+docker run --volume <span style="color:#e6db74">&#34;`pwd`:/data&#34;</span> --user <span style="color:#e6db74">`</span>id -u<span style="color:#e6db74">`</span>:<span style="color:#e6db74">`</span>id -g<span style="color:#e6db74">`</span> pandoc/latex:2.6 -t docx cv.html &gt; cv.docx</code></pre></div>
+<h2 id="tips-and-shell-script">tips and shell script</h2>
+
+<ul>
+<li><p>do not append a space at end of any line, it will produce a space line in docx file.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">cp ../hugo/public/cv.html ./
+<span style="color:#75715e"># delete lines between &lt;aside&gt; and &lt;/aside&gt;</span>
+sed -i <span style="color:#e6db74">&#39;&#39;</span> <span style="color:#e6db74">&#39;/^ *&lt;aside&gt;/,/^&lt;\/aside&gt;/d&#39;</span> cv.html
+<span style="color:#75715e"># convert to docx files</span>
+docker run --volume <span style="color:#e6db74">&#34;`pwd`:/data&#34;</span> --user <span style="color:#e6db74">`</span>id -u<span style="color:#e6db74">`</span>:<span style="color:#e6db74">`</span>id -g<span style="color:#e6db74">`</span> pandoc/latex:2.6 -t docx cv.html &gt; cv.docx</code></pre></div></li>
+</ul>
+
+
+</article>
+
+
+<section class="post-nav">
+    <ul>
+        
+        <li>
+            <a href="https://boqiao.github.io/posts/sqlsvr_backup_script/"><i class="fa fa-chevron-circle-left"></i> store procedure for generating create-scripts of sql-server2000 object</a>
+        </li>
+        
+        
+    </ul>
+</section>
+    
+
+
+
+
+
+</main>
+    <footer>
+        <h6>Copyright &copy; 2019 - John |
+            Rendered by <a href="https://gohugo.io" title="Hugo">Hugo</a> |
+            <a href="https://boqiao.github.io/index.xml">Subscribe </a></h6>
+    </footer>
+</div>
+<script src="https://boqiao.github.io/js/scripts.js"></script>
+
+</body>
+
+</html>
+
