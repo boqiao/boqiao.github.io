@@ -606,6 +606,10 @@ nginx&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;h3 id=&#34;convert-markdown-to-docx&#34;&gt;convert markdown to docx&lt;/h3&gt;
 
 &lt;p&gt;docker run &amp;ndash;volume &amp;ldquo;&lt;code&gt;pwd&lt;/code&gt;:/data&amp;rdquo; &amp;ndash;user &lt;code&gt;id -u&lt;/code&gt;:&lt;code&gt;id -g&lt;/code&gt; pandoc/latex:2.6 -t docx readme.md &amp;gt; readme.docx&lt;/p&gt;
+
+&lt;h3 id=&#34;unrar&#34;&gt;unrar&lt;/h3&gt;
+
+&lt;p&gt;docker run &amp;ndash;rm -v $PWD:/files maxcnunes/unrar:latest unrar e -r TyGl.rar&lt;/p&gt;
 </description>
      </item>
    
